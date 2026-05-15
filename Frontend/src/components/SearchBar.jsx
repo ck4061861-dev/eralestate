@@ -69,7 +69,7 @@ function SearchBar() {
   }
 
   return (
-    <div className="mx-auto mt-3.5 w-full max-w-5xl rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 p-3 sm:p-4 md:p-6">
+    <div className="mx-auto mt-6 sm:mt-8 md:mt-12 w-full max-w-5xl rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 p-3 sm:p-4 md:p-6">
       <form className="grid gap-2 sm:gap-3 md:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full" onSubmit={handleSubmit}>
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase text-slate-500">Location</label>

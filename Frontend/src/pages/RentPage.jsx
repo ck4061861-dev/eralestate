@@ -1,4 +1,5 @@
 ﻿import React, { useMemo, useState } from 'react';
+import LetBenefits from '../components/LetBenefits'
 import { Link, useParams } from 'react-router-dom';
 import { 
   CheckCircle2, 
@@ -68,6 +69,41 @@ function estimateMoveInCost(monthlyRent, depositWeeks) {
   return monthlyRent + weeklyRent * depositWeeks;
 }
 
+// ── BULLET COMPONENTS ──
+function PinkArrowBullet({ children }) {
+  return (
+    <div className="flex items-start gap-4">
+      <div className="mt-2 shrink-0">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-rose-600">
+          <path d="M2 1L12 7L2 13V1Z" fill="currentColor" />
+        </svg>
+      </div>
+      <div className="text-slate-800 text-lg leading-relaxed">{children}</div>
+    </div>
+  );
+}
+
+function CheckBullet({ text }) {
+  return (
+    <div className="flex items-start gap-3">
+      <Check className="w-5 h-5 text-green-600 mt-1 shrink-0" />
+      <span className="text-slate-700 text-lg leading-relaxed">{text}</span>
+    </div>
+  );
+}
+
+function IconBullet({ icon, title, text }) {
+  return (
+    <div className="flex items-start gap-4">
+      <div className="mt-1 shrink-0 text-rose-600">{icon}</div>
+      <div>
+        <h3 className="font-bold text-xl text-slate-900 mb-1">{title}</h3>
+        <p className="text-slate-700 text-lg leading-relaxed">{text}</p>
+      </div>
+    </div>
+  );
+}
+
 // ── REUSABLE UI COMPONENTS ──
 function ToolCard({ title, icon, children, bg = 'bg-white' }) {
   return (
@@ -90,16 +126,6 @@ function SectionHeader({ title, subtitle }) {
   );
 }
 
-function InfoCard({ title, text, icon }) {
-  return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-      <div className="mb-4 p-3 bg-slate-50 rounded-xl w-fit text-slate-700">{icon}</div>
-      <h3 className="text-xl font-bold text-slate-900 mb-2">{title}</h3>
-      <p className="text-slate-600 text-sm leading-relaxed">{text}</p>
-    </div>
-  );
-}
-
 // ── PAGE CONTENT GENERATORS ──
 
 // 1. TENANTS GUIDE
@@ -109,19 +135,37 @@ function TenantsGuidePage() {
 
   return (
     <div className="space-y-24">
-      
+
       {/* Section 1: Overview */}
       <div>
         <SectionHeader title="The UK Renting Process" subtitle="Navigating the private rental sector in the UK involves specific steps and legal requirements." />
-        <div className="bg-white border border-slate-200 rounded-3xl p-8 md:p-12">
-          <p className="text-lg text-slate-600 leading-relaxed mb-6">
-            Renting a home in the UK typically involves searching for a property, passing referencing checks, signing a tenancy agreement, and paying a deposit. Unlike buying, renting offers flexibility but requires adherence to landlord rules and legal protections.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
-             <InfoCard title="Viewing" text="Arrange viewings through estate agents. Be on time and ask about bills and council tax." icon={<Home className="w-6 h-6" />} />
-             <InfoCard title="Referencing" text="Prepare documents for credit checks and Right to Rent verification." icon={<Users className="w-6 h-6" />} />
-             <InfoCard title="Agreement" text="Sign an Assured Shorthold Tenancy (AST) agreement outlining your rights." icon={<FileText className="w-6 h-6" />} />
-          </div>
+        <div className="space-y-5">
+          <PinkArrowBullet>
+            Renting a home in the UK typically involves searching for a property, passing referencing checks, signing a tenancy agreement, and paying a deposit.
+          </PinkArrowBullet>
+          <PinkArrowBullet>
+            Unlike buying, renting offers flexibility but requires adherence to landlord rules and legal protections under the Housing Act 1988.
+          </PinkArrowBullet>
+          <PinkArrowBullet>
+            Paramount Estates guides tenants through every step — from viewing to move-in — ensuring complete transparency.
+          </PinkArrowBullet>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6 mt-10">
+           <div className="text-center">
+             <div className="p-3 bg-slate-50 rounded-xl w-fit mx-auto text-slate-700 mb-3"><Home className="w-6 h-6" /></div>
+             <h3 className="text-xl font-bold text-slate-900 mb-2">Viewing</h3>
+             <p className="text-slate-600 text-sm leading-relaxed">Arrange viewings through estate agents. Be on time and ask about bills and council tax.</p>
+           </div>
+           <div className="text-center">
+             <div className="p-3 bg-slate-50 rounded-xl w-fit mx-auto text-slate-700 mb-3"><Users className="w-6 h-6" /></div>
+             <h3 className="text-xl font-bold text-slate-900 mb-2">Referencing</h3>
+             <p className="text-slate-600 text-sm leading-relaxed">Prepare documents for credit checks and Right to Rent verification.</p>
+           </div>
+           <div className="text-center">
+             <div className="p-3 bg-slate-50 rounded-xl w-fit mx-auto text-slate-700 mb-3"><FileText className="w-6 h-6" /></div>
+             <h3 className="text-xl font-bold text-slate-900 mb-2">Agreement</h3>
+             <p className="text-slate-600 text-sm leading-relaxed">Sign an Assured Shorthold Tenancy (AST) agreement outlining your rights.</p>
+           </div>
         </div>
       </div>
 
@@ -155,14 +199,22 @@ function TenantsGuidePage() {
       {/* Section 3: Common Mistakes */}
       <div>
         <SectionHeader title="Common Tenant Mistakes to Avoid" subtitle="Ensure a smooth tenancy by avoiding these common pitfalls." />
-        <div className="grid md:grid-cols-2 gap-6">
-           <div className="bg-red-50 border border-red-100 p-6 rounded-3xl">
-             <h4 className="font-bold text-red-900 mb-2 flex items-center gap-2"><AlertTriangle className="w-5 h-5" /> Not Reading the Contract</h4>
-             <p className="text-sm text-red-800">Always read the tenancy agreement. Look for break clauses, rent increase terms, and notice periods.</p>
+        <div className="space-y-8">
+           <div>
+             <h4 className="font-bold text-red-900 mb-3 flex items-center gap-2 text-xl"><AlertTriangle className="w-5 h-5" /> Not Reading the Contract</h4>
+             <div className="space-y-3 ml-7">
+               <CheckBullet text="Always read the tenancy agreement cover to cover before signing." />
+               <CheckBullet text="Look for break clauses, rent increase terms, and notice periods." />
+               <CheckBullet text="Check who is responsible for repairs and maintenance." />
+             </div>
            </div>
-           <div className="bg-red-50 border border-red-100 p-6 rounded-3xl">
-             <h4 className="font-bold text-red-900 mb-2 flex items-center gap-2"><AlertTriangle className="w-5 h-5" /> Not Reporting Issues</h4>
-             <p className="text-sm text-red-800">Report repairs immediately in writing. If you don't, you may be liable for damages caused later.</p>
+           <div>
+             <h4 className="font-bold text-red-900 mb-3 flex items-center gap-2 text-xl"><AlertTriangle className="w-5 h-5" /> Not Reporting Issues</h4>
+             <div className="space-y-3 ml-7">
+               <CheckBullet text="Report repairs immediately in writing or via email for a paper trail." />
+               <CheckBullet text="If you don't report damage promptly, you may be liable for worsened conditions." />
+               <CheckBullet text="Keep photos and records of all communications with your landlord." />
+             </div>
            </div>
         </div>
       </div>
@@ -170,22 +222,38 @@ function TenantsGuidePage() {
       {/* Section 4: Legal Protections */}
       <div>
         <SectionHeader title="Your Legal Protections" subtitle="UK law provides significant rights to tenants." />
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-             <h3 className="font-bold text-xl mb-4">Right to a Habitable Home</h3>
-             <p className="text-slate-600 text-sm">Your landlord must ensure the property is safe and in good repair (Section 11, Landlord & Tenant Act 1985).</p>
+        <div className="space-y-8">
+          <div>
+             <h3 className="font-bold text-xl mb-3 text-slate-900">Right to a Habitable Home</h3>
+             <div className="space-y-2">
+               <CheckBullet text="Your landlord must ensure the property is safe and in good repair." />
+               <CheckBullet text="Section 11, Landlord & Tenant Act 1985 covers structural repairs." />
+               <CheckBullet text="Working heating, plumbing, and electrics are mandatory." />
+             </div>
           </div>
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-             <h3 className="font-bold text-xl mb-4">Deposit Protection</h3>
-             <p className="text-slate-600 text-sm">Your money must be protected in a government-backed scheme within 30 days.</p>
+          <div>
+             <h3 className="font-bold text-xl mb-3 text-slate-900">Deposit Protection</h3>
+             <div className="space-y-2">
+               <CheckBullet text="Your deposit must be protected in a government-backed scheme." />
+               <CheckBullet text="Landlord must provide prescribed information within 30 days." />
+               <CheckBullet text="You are entitled to a full refund if no damage occurs." />
+             </div>
           </div>
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-             <h3 className="font-bold text-xl mb-4">Protection from Eviction</h3>
-             <p className="text-slate-600 text-sm">Landlords must follow legal procedures to evict you; they cannot force you out themselves.</p>
+          <div>
+             <h3 className="font-bold text-xl mb-3 text-slate-900">Protection from Eviction</h3>
+             <div className="space-y-2">
+               <CheckBullet text="Landlords must follow strict legal procedures to evict tenants." />
+               <CheckBullet text="Notice periods must comply with the Housing Act 1988." />
+               <CheckBullet text="Illegal eviction is a criminal offence — seek legal advice immediately." />
+             </div>
           </div>
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-             <h3 className="font-bold text-xl mb-4">Quiet Enjoyment</h3>
-             <p className="text-slate-600 text-sm">You have the right to live in your home without unnecessary interference from the landlord.</p>
+          <div>
+             <h3 className="font-bold text-xl mb-3 text-slate-900">Quiet Enjoyment</h3>
+             <div className="space-y-2">
+               <CheckBullet text="You have the right to live without unnecessary landlord interference." />
+               <CheckBullet text="Landlord must give 24 hours notice before inspections." />
+               <CheckBullet text="Harassment by a landlord can result in legal penalties." />
+             </div>
           </div>
         </div>
       </div>
@@ -206,13 +274,16 @@ function FeesPage() {
       {/* Section 1: The Law */}
       <div>
         <SectionHeader title="The Tenant Fees Act 2019" subtitle="Understanding what landlords can and cannot charge you for." />
-        <div className="bg-blue-50 border border-blue-100 p-8 md:p-12 rounded-3xl">
-           <p className="text-lg text-blue-900 leading-relaxed mb-4">
-             Since June 1, 2019, it is illegal for landlords in England to charge most "holding deposits" or tenancy setup fees to tenants.
-           </p>
-           <p className="text-base text-blue-800">
-             The only payments you should be asked to make before moving in are the <strong>Security Deposit</strong> (capped at 5 weeks' rent) and the <strong>Holding Deposit</strong> (capped at 1 week's rent).
-           </p>
+        <div className="space-y-5">
+           <PinkArrowBullet>
+             Since June 1, 2019, it is illegal for landlords in England to charge most tenancy setup fees to tenants.
+           </PinkArrowBullet>
+           <PinkArrowBullet>
+             The only permitted payments before moving in are the <strong>Security Deposit</strong> (capped at 5 weeks' rent) and the <strong>Holding Deposit</strong> (capped at 1 week's rent).
+           </PinkArrowBullet>
+           <PinkArrowBullet>
+             Paramount Estates operates with complete fee transparency — no hidden admin charges, ever.
+           </PinkArrowBullet>
         </div>
       </div>
 
@@ -247,16 +318,22 @@ function FeesPage() {
       {/* Section 3: Fee Breakdown */}
       <div>
         <SectionHeader title="Breakdown of Costs" subtitle="Where does your money go?" />
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white p-8 rounded-3xl border border-slate-200">
-             <h3 className="font-bold text-2xl mb-2">Security Deposit</h3>
-             <p className="text-slate-600 mb-4">A payment to cover potential damages or rent arrears.</p>
-             <p className="text-sm font-bold text-slate-900">Capped at 5 weeks' rent.</p>
+        <div className="space-y-8">
+          <div>
+             <h3 className="font-bold text-2xl mb-3 text-slate-900">Security Deposit</h3>
+             <div className="space-y-2">
+               <CheckBullet text="A payment to cover potential damages or rent arrears at the end of tenancy." />
+               <CheckBullet text="Legally capped at 5 weeks' rent for properties under £50,000 per year." />
+               <CheckBullet text="Must be protected in a government-approved scheme within 30 days." />
+             </div>
           </div>
-          <div className="bg-white p-8 rounded-3xl border border-slate-200">
-             <h3 className="font-bold text-2xl mb-2">Rent in Advance</h3>
-             <p className="text-slate-600 mb-4">Payment due on the day you move in.</p>
-             <p className="text-sm font-bold text-slate-900">Usually 1 month's rent.</p>
+          <div>
+             <h3 className="font-bold text-2xl mb-3 text-slate-900">Rent in Advance</h3>
+             <div className="space-y-2">
+               <CheckBullet text="First month's rent is due on the day you collect keys." />
+               <CheckBullet text="Subsequent rent is due on the same date each month." />
+               <CheckBullet text="Standing order setup is recommended to avoid late fees." />
+             </div>
           </div>
         </div>
       </div>
@@ -264,13 +341,13 @@ function FeesPage() {
       {/* Section 4: Banned Fees */}
       <div>
         <SectionHeader title="Banned Fees" subtitle="Your landlord cannot legally charge you for these." />
-        <div className="bg-red-50 border border-red-200 p-8 md:p-12 rounded-3xl">
-          <ul className="grid md:grid-cols-2 gap-4 text-slate-800">
-            <li className="flex items-center gap-3"><Check className="w-5 h-5 text-green-600" /> Tenancy Setup Fees</li>
-            <li className="flex items-center gap-3"><Check className="w-5 h-5 text-green-600" /> Check-in / Inventory Fees</li>
-            <li className="flex items-center gap-3"><Check className="w-5 h-5 text-green-600" /> Admin Fees</li>
-            <li className="flex items-center gap-3"><Check className="w-5 h-5 text-green-600" /> Gardening / Cleaning (unless in contract)</li>
-          </ul>
+        <div className="space-y-3">
+          <CheckBullet text="Tenancy Setup Fees" />
+          <CheckBullet text="Check-in / Inventory Fees" />
+          <CheckBullet text="Admin & Referencing Fees" />
+          <CheckBullet text="Contract Renewal Charges" />
+          <CheckBullet text="Gardening / Cleaning (unless in contract)" />
+          <CheckBullet text="Viewing or Accompanied Visit Fees" />
         </div>
       </div>
 
@@ -298,22 +375,24 @@ function ReviewsPage() {
            <Star className="w-8 h-8 fill-amber-500 text-amber-500" />
            <span className="text-2xl font-bold text-slate-900 ml-2">5.0 Rating</span>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="space-y-6">
           {reviews.map((r) => (
-             <div key={r.name} className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
-                <p className="text-slate-600 italic mb-4">"{r.note}"</p>
-                <p className="font-bold text-slate-900">{r.name}</p>
-                <div className="text-amber-400 text-xs mt-2">{'★'.repeat(r.rating)}</div>
+             <div key={r.name} className="border-b border-slate-100 pb-6">
+                <p className="text-slate-600 italic mb-3 text-lg">"{r.note}"</p>
+                <div className="flex items-center gap-3">
+                  <p className="font-bold text-slate-900">{r.name}</p>
+                  <div className="text-amber-400 text-sm">{'★'.repeat(r.rating)}</div>
+                </div>
              </div>
           ))}
         </div>
       </div>
       <div>
         <SectionHeader title="Why Choose Us" subtitle="We are committed to providing the best rental experience." />
-        <div className="grid md:grid-cols-3 gap-6">
-           <InfoCard title="Transparent Fees" text="No hidden charges. What you see is what you pay." icon={<BookOpen className="w-6 h-6" />} />
-           <InfoCard title="Fast Response" text="Our team is available 24/7 for maintenance emergencies." icon={<Phone className="w-6 h-6" />} />
-           <InfoCard title="Quality Homes" text="All properties are vetted for safety and compliance." icon={<ShieldCheck className="w-6 h-6" />} />
+        <div className="space-y-6">
+           <IconBullet icon={<BookOpen className="w-6 h-6" />} title="Transparent Fees" text="No hidden charges. What you see is what you pay." />
+           <IconBullet icon={<Phone className="w-6 h-6" />} title="Fast Response" text="Our team is available 24/7 for maintenance emergencies." />
+           <IconBullet icon={<ShieldCheck className="w-6 h-6" />} title="Quality Homes" text="All properties are vetted for safety and compliance." />
         </div>
       </div>
     </div>
@@ -326,50 +405,61 @@ function LandlordGuidePage() {
     <div className="space-y-24">
       <div>
         <SectionHeader title="Your Responsibilities as a Landlord" subtitle="UK law requires you to maintain the property and ensure tenant safety." />
-        <div className="bg-slate-50 p-8 md:p-12 rounded-3xl text-lg text-slate-700 leading-relaxed">
-          <p className="mb-4">Being a landlord in the UK comes with significant legal responsibilities. Failure to comply can result in heavy fines or even a ban from renting out property.</p>
-          <p>We assist you in staying compliant with the Housing Act 1988, Gas Safety Regulations, and Fire Safety Orders.</p>
+        <div className="space-y-5">
+          <PinkArrowBullet>
+            Being a landlord in the UK comes with significant legal responsibilities under the Housing Act 1988.
+          </PinkArrowBullet>
+          <PinkArrowBullet>
+            Failure to comply with gas safety, electrical, and fire regulations can result in heavy fines or even a ban from renting.
+          </PinkArrowBullet>
+          <PinkArrowBullet>
+            Paramount Estates assists you in staying compliant with Gas Safety Regulations, EPC requirements, and Fire Safety Orders.
+          </PinkArrowBullet>
+          <PinkArrowBullet>
+            We handle Right to Rent checks, tenancy agreements, and deposit protection on your behalf.
+          </PinkArrowBullet>
         </div>
       </div>
 
       <div>
         <SectionHeader title="Legal Compliance Checklist" subtitle="The non-negotiables for every UK property." />
-        <div className="grid md:grid-cols-2 gap-6">
-          <InfoCard 
+        <div className="space-y-8">
+          <IconBullet 
+            icon={<Zap className="w-6 h-6" />} 
             title="Gas Safety (CP12)" 
             text="An annual check by a Gas Safe engineer is mandatory. You must provide a copy to the tenant." 
-            icon={<Zap className="w-6 h-6" />} 
           />
-          <InfoCard 
+          <IconBullet 
+            icon={<TrendingUp className="w-6 h-6" />} 
             title="Energy Performance Certificate (EPC)" 
             text="Minimum rating 'E' for new lets. Valid for 10 years." 
-            icon={<TrendingUp className="w-6 h-6" />} 
           />
-          <InfoCard 
+          <IconBullet 
+            icon={<Users className="w-6 h-6" />} 
             title="Right to Rent Checks" 
             text="Verify all tenants over 18 have the right to live in the UK to avoid fines." 
-            icon={<Users className="w-6 h-6" />} 
           />
-          <InfoCard 
+          <IconBullet 
+            icon={<ShieldCheck className="w-6 h-6" />} 
             title="Smoke Alarms" 
             text="At least one alarm on every storey. Carbon monoxide alarms where solid fuel is used." 
-            icon={<ShieldCheck className="w-6 h-6" />} 
           />
         </div>
       </div>
 
       <div>
         <SectionHeader title="Tenant Vetting" subtitle="Finding the right tenant is key to a stress-free experience." />
-        <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-200">
-           <p className="text-slate-600 mb-6">We conduct comprehensive referencing including:</p>
-           <ul className="space-y-2 text-slate-700">
-             <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-slate-400" /> Affordability Checks (Income vs Rent)</li>
-             <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-slate-400" /> Credit History</li>
-             <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-slate-400" /> Previous Landlord References</li>
-             <li className="flex gap-2"><CheckCircle2 className="w-5 h-5 text-slate-400" /> Right to Rent Validation</li>
-           </ul>
+        <p className="text-slate-600 mb-6 text-lg">We conduct comprehensive referencing including:</p>
+        <div className="space-y-4">
+          <CheckBullet text="Affordability Checks — Income must be at least 2.5x the monthly rent." />
+          <CheckBullet text="Credit History — Full UK credit report to assess financial reliability." />
+          <CheckBullet text="Previous Landlord References — Verification of rental history and conduct." />
+          <CheckBullet text="Right to Rent Validation — Passport, visa, and biometric permit checks." />
+          <CheckBullet text="Employment Verification — Current employer confirmation and contract review." />
         </div>
       </div>
+
+      <LetBenefits />
     </div>
   );
 }
@@ -380,34 +470,48 @@ function ServicesPage() {
     <div className="space-y-24">
       <div>
         <SectionHeader title="Our Service Levels" subtitle="Choose how much involvement you want in managing your property." />
-        <div className="space-y-6">
-           <div className="bg-white p-8 rounded-3xl border-2 border-slate-200 hover:border-slate-900 transition-colors">
-             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold">Let Only</h3>
-                <span className="bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded-full">+ VAT</span>
+        <div className="space-y-10">
+           <div>
+             <div className="flex items-center gap-3 mb-4">
+                <h3 className="text-2xl font-bold text-slate-900">Let Only</h3>
+                <span className="bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded-full text-sm">+ VAT</span>
              </div>
-             <p className="text-slate-600 mb-4">We find the tenant and handle the paperwork. You manage the day-to-day.</p>
+             <div className="space-y-3 mb-4">
+               <CheckBullet text="We find the tenant and handle all initial paperwork and referencing." />
+               <CheckBullet text="You manage the day-to-day tenancy, rent collection, and maintenance." />
+               <CheckBullet text="Ideal for experienced landlords with available time." />
+             </div>
              <p className="text-xl font-bold text-slate-900">Fee: 8% - 10% of first month's rent</p>
            </div>
-           <div className="bg-slate-900 text-white p-8 rounded-3xl">
-             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold">Full Management</h3>
-                <span className="bg-white/20 text-white font-bold px-3 py-1 rounded-full">+ VAT</span>
+           <div className="border-t border-slate-200 pt-10">
+             <div className="flex items-center gap-3 mb-4">
+                <h3 className="text-2xl font-bold text-slate-900">Full Management</h3>
+                <span className="bg-slate-100 text-slate-800 font-bold px-3 py-1 rounded-full text-sm">+ VAT</span>
              </div>
-             <p className="text-slate-300 mb-4">We handle everything: rent, maintenance, compliance, and inspections.</p>
-             <p className="text-xl font-bold text-white">Fee: 10% - 12% of monthly rent</p>
+             <div className="space-y-3 mb-4">
+               <CheckBullet text="We handle everything: rent collection, maintenance, compliance, and inspections." />
+               <CheckBullet text="24/7 emergency maintenance coordination included." />
+               <CheckBullet text="Legal notice serving and deposit dispute handling." />
+             </div>
+             <p className="text-xl font-bold text-slate-900">Fee: 10% - 12% of monthly rent</p>
            </div>
         </div>
       </div>
       <div>
         <SectionHeader title="Included in Management" subtitle="Value-added services at no extra cost." />
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-           <div className="p-4 bg-slate-50 rounded-2xl text-center"><Award className="w-8 h-8 mx-auto mb-2 text-slate-400" /><p className="text-sm font-bold text-slate-900">Rent Collection</p></div>
-           <div className="p-4 bg-slate-50 rounded-2xl text-center"><Home className="w-8 h-8 mx-auto mb-2 text-slate-400" /><p className="text-sm font-bold text-slate-900">Maintenance</p></div>
-           <div className="p-4 bg-slate-50 rounded-2xl text-center"><FileText className="w-8 h-8 mx-auto mb-2 text-slate-400" /><p className="text-sm font-bold text-slate-900">Legal Notices</p></div>
-           <div className="p-4 bg-slate-50 rounded-2xl text-center"><Users className="w-8 h-8 mx-auto mb-2 text-slate-400" /><p className="text-sm font-bold text-slate-900">Tenant Find</p></div>
+        <div className="space-y-3">
+          <CheckBullet text="Rent Collection & Monthly Statements" />
+          <CheckBullet text="Maintenance Coordination & Contractor Management" />
+          <CheckBullet text="Legal Notices & Section 21 / Section 8 Serving" />
+          <CheckBullet text="Tenant Find & Comprehensive Referencing" />
+          <CheckBullet text="Quarterly Property Inspections" />
+          <CheckBullet text="Deposit Protection & Dispute Resolution" />
+          <CheckBullet text="Gas Safety & EPC Renewal Reminders" />
+          <CheckBullet text="Annual Tax Statement Preparation" />
         </div>
       </div>
+
+      <LetBenefits />
     </div>
   );
 }
@@ -418,42 +522,62 @@ function EPCPage() {
     <div className="space-y-24">
       <div>
         <SectionHeader title="Energy Performance Certificate (EPC)" subtitle="Why it matters and what the new rules mean for you." />
-        <div className="bg-white p-8 md:p-12 rounded-3xl border border-slate-200">
-           <p className="text-lg text-slate-700 mb-6">An EPC gives a property an energy efficiency rating from A (most efficient) to G (least efficient). It is valid for 10 years.</p>
-           <div className="flex gap-2 mb-4">
-              <div className="px-4 py-2 bg-green-500 text-white rounded font-bold">A</div>
-              <div className="px-4 py-2 bg-green-500 text-white rounded font-bold">B</div>
-              <div className="px-4 py-2 bg-lime-500 text-white rounded font-bold">C</div>
-              <div className="px-4 py-2 bg-lime-500 text-white rounded font-bold">D</div>
-              <div className="px-4 py-2 bg-yellow-500 text-white rounded font-bold">E</div>
-              <div className="px-4 py-2 bg-orange-500 text-white rounded font-bold">F</div>
-              <div className="px-4 py-2 bg-red-500 text-white rounded font-bold">G</div>
-           </div>
+        <div className="space-y-4 mb-6">
+          <PinkArrowBullet>
+            An EPC gives a property an energy efficiency rating from A (most efficient) to G (least efficient).
+          </PinkArrowBullet>
+          <PinkArrowBullet>
+            The certificate is valid for 10 years and must be available before marketing the property.
+          </PinkArrowBullet>
+          <PinkArrowBullet>
+            Paramount Estates can arrange EPC assessments through certified domestic energy assessors.
+          </PinkArrowBullet>
+        </div>
+        <div className="flex gap-2 mb-4 flex-wrap">
+           <div className="px-4 py-2 bg-green-500 text-white rounded font-bold">A</div>
+           <div className="px-4 py-2 bg-green-500 text-white rounded font-bold">B</div>
+           <div className="px-4 py-2 bg-lime-500 text-white rounded font-bold">C</div>
+           <div className="px-4 py-2 bg-lime-500 text-white rounded font-bold">D</div>
+           <div className="px-4 py-2 bg-yellow-500 text-white rounded font-bold">E</div>
+           <div className="px-4 py-2 bg-orange-500 text-white rounded font-bold">F</div>
+           <div className="px-4 py-2 bg-red-500 text-white rounded font-bold">G</div>
         </div>
       </div>
 
       <div>
         <SectionHeader title="The Minimum 'E' Rating Rule" subtitle="Crucial information for new lets in England." />
-        <div className="bg-red-50 border border-red-200 p-8 md:p-12 rounded-3xl">
-           <div className="flex items-start gap-4">
-              <AlertTriangle className="w-10 h-10 text-red-600 flex-shrink-0" />
-              <div>
-                <h3 className="text-xl font-bold text-red-900 mb-2">Effective 1 April 2020</h3>
-                <p className="text-red-800">Privately rented properties in England must have a minimum rating of <strong>Band E</strong>. You cannot legally let a property rated F or G to new tenants without making recommended improvements.</p>
-              </div>
-           </div>
+        <div className="space-y-4">
+          <div className="flex items-start gap-4">
+            <AlertTriangle className="w-8 h-8 text-red-600 flex-shrink-0 mt-1" />
+            <div className="space-y-3">
+              <h3 className="text-xl font-bold text-red-900">Effective 1 April 2020</h3>
+              <PinkArrowBullet>
+                Privately rented properties in England must have a minimum rating of <strong>Band E</strong>.
+              </PinkArrowBullet>
+              <PinkArrowBullet>
+                You cannot legally let a property rated F or G to new tenants without making recommended improvements.
+              </PinkArrowBullet>
+              <PinkArrowBullet>
+                Fines of up to £5,000 can be imposed for non-compliance with MEES regulations.
+              </PinkArrowBullet>
+            </div>
+          </div>
         </div>
       </div>
 
       <div>
         <SectionHeader title="How to Improve Your Rating" subtitle="Simple steps to boost efficiency." />
-        <div className="grid md:grid-cols-2 gap-6">
-           <div className="bg-white p-6 rounded-2xl border border-slate-200"><h4 className="font-bold mb-2">LED Lighting</h4><p className="text-sm text-slate-600">Replace old bulbs with energy-efficient LEDs.</p></div>
-           <div className="bg-white p-6 rounded-2xl border border-slate-200"><h4 className="font-bold mb-2">Insulation</h4><p className="text-sm text-slate-600">Improve loft and wall insulation.</p></div>
-           <div className="bg-white p-6 rounded-2xl border border-slate-200"><h4 className="font-bold mb-2">Boiler Upgrade</h4><p className="text-sm text-slate-600">Modern condensing boilers are far more efficient.</p></div>
-           <div className="bg-white p-6 rounded-2xl border border-slate-200"><h4 className="font-bold mb-2">Double Glazing</h4><p className="text-sm text-slate-600">Reduce heat loss through windows.</p></div>
+        <div className="space-y-4">
+          <CheckBullet text="LED Lighting — Replace old bulbs with energy-efficient LEDs throughout the property." />
+          <CheckBullet text="Loft & Wall Insulation — Improve thermal retention and reduce heating costs." />
+          <CheckBullet text="Boiler Upgrade — Modern condensing boilers are far more efficient than older models." />
+          <CheckBullet text="Double Glazing — Reduce heat loss and draughts through windows." />
+          <CheckBullet text="Smart Heating Controls — Install thermostatic radiator valves and smart thermostats." />
+          <CheckBullet text="Draught Proofing — Seal gaps around doors, windows, and floorboards." />
         </div>
       </div>
+
+      <LetBenefits />
     </div>
   );
 }
@@ -469,24 +593,31 @@ function LandlordReviewsPage() {
     <div className="space-y-24">
       <div>
         <SectionHeader title="Trusted by Landlords" subtitle="See why over 500 landlords choose our management services." />
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="space-y-6">
           {reviews.map((r) => (
-             <div key={r.name} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-                <p className="text-slate-600 italic mb-6 text-lg">"{r.note}"</p>
-                <p className="font-bold text-slate-900 text-xl">{r.name}</p>
-                <div className="text-amber-400 mt-2">{'★'.repeat(r.rating)}</div>
+             <div key={r.name} className="border-b border-slate-100 pb-6">
+                <p className="text-slate-600 italic mb-3 text-lg">"{r.note}"</p>
+                <div className="flex items-center gap-3">
+                  <p className="font-bold text-slate-900 text-lg">{r.name}</p>
+                  <div className="text-amber-400">{'★'.repeat(r.rating)}</div>
+                </div>
              </div>
           ))}
         </div>
       </div>
       <div>
         <SectionHeader title="Our Promise" subtitle="We treat your property as if it were our own." />
-        <div className="bg-slate-900 text-white p-10 md:p-16 rounded-3xl text-center">
-           <p className="text-2xl font-bold mb-6">Reduced Void Periods</p>
-           <p className="text-slate-300 max-w-2xl mx-auto mb-8">Our marketing strategy ensures your property is rented quickly and to reliable tenants.</p>
-           <Link to="/contact" className="inline-block bg-white text-slate-900 px-8 py-3 rounded-full font-bold">Partner With Us</Link>
+        <div className="space-y-4 max-w-2xl mx-auto text-left mb-8">
+          <CheckBullet text="Reduced Void Periods — Your property marketed across all major portals within 24 hours." />
+          <CheckBullet text="Rigorous Vetting — Only the most reliable tenants pass our referencing process." />
+          <CheckBullet text="Transparent Pricing — No hidden fees, ever. What we quote is what you pay." />
+        </div>
+        <div className="text-center">
+          <Link to="/contact" className="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold">Partner With Us</Link>
         </div>
       </div>
+
+      <LetBenefits />
     </div>
   );
 }
@@ -497,31 +628,50 @@ function ValuationPage() {
     <div className="space-y-24">
       <div>
         <SectionHeader title="Book a Free Valuation" subtitle="Get an accurate rental valuation for your property." />
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-             <h3 className="text-xl font-bold mb-4">Why Valuation Matters?</h3>
-             <p className="text-slate-600 mb-4">Setting the right rent is crucial. Too high, and it sits empty; too low, and you lose income.</p>
-             <p className="text-slate-600">Our agents use live market data from comparable properties to advise you.</p>
+        <div className="space-y-10">
+          <div>
+             <h3 className="text-xl font-bold mb-4 text-slate-900">Why Valuation Matters?</h3>
+             <div className="space-y-3">
+               <CheckBullet text="Setting the right rent is crucial — too high and it sits empty, too low and you lose income." />
+               <CheckBullet text="Our agents use live market data from comparable properties in Romford and Dagenham." />
+               <CheckBullet text="We consider property condition, location, transport links, and local demand." />
+             </div>
           </div>
-          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-             <h3 className="text-xl font-bold mb-4">The Process</h3>
-             <ol className="list-decimal list-inside space-y-2 text-slate-600">
-                <li>Book an appointment online.</li>
-                <li>Our expert visits your property.</li>
-                <li>We provide a detailed report.</li>
-                <li>You decide to list or not.</li>
-             </ol>
+          <div>
+             <h3 className="text-xl font-bold mb-4 text-slate-900">The Process</h3>
+             <div className="space-y-4">
+               <div className="flex items-start gap-4">
+                 <div className="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                 <p className="text-slate-600 text-lg">Book an appointment online or by phone.</p>
+               </div>
+               <div className="flex items-start gap-4">
+                 <div className="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                 <p className="text-slate-600 text-lg">Our local expert visits your property at a convenient time.</p>
+               </div>
+               <div className="flex items-start gap-4">
+                 <div className="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">3</div>
+                 <p className="text-slate-600 text-lg">We provide a detailed comparable market analysis report.</p>
+               </div>
+               <div className="flex items-start gap-4">
+                 <div className="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-sm shrink-0">4</div>
+                 <p className="text-slate-600 text-lg">You decide to list — no obligation, no pressure.</p>
+               </div>
+             </div>
           </div>
         </div>
       </div>
-      
-      <div className="bg-slate-900 text-white p-10 md:p-16 rounded-3xl text-center">
+
+      <div className="text-center">
         <Calendar className="w-12 h-12 mx-auto mb-6 text-slate-400" />
-        <h3 className="text-3xl font-bold mb-4">Schedule Your Visit</h3>
-        <p className="text-slate-300 mb-8 max-w-xl mx-auto">No obligation. No pressure. Just honest advice.</p>
+        <h3 className="text-3xl font-bold mb-4 text-slate-900">Schedule Your Visit</h3>
+        <div className="max-w-xl mx-auto space-y-3 mb-8 text-left">
+          <CheckBullet text="No obligation — receive your report and take your time deciding." />
+          <CheckBullet text="No pressure — our advice is honest and data-driven, never pushy." />
+          <CheckBullet text="Same-day appointments often available across RM postcodes." />
+        </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to="/contact" className="bg-white text-slate-900 px-8 py-4 rounded-2xl font-bold hover:bg-slate-200">Book Online</Link>
-          <Link to="/contact" className="border border-slate-600 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800">Call Us</Link>
+          <Link to="/contact" className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800">Book Online</Link>
+          <Link to="/contact" className="border border-slate-300 text-slate-900 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50">Call Us</Link>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import {
   Clock, 
   ArrowRight,
   FileText,
-  CheckCircle
+  ChevronRight
 } from 'lucide-react';
 
 // Updated UK-specific content
@@ -53,94 +53,61 @@ const HIGHLIGHTS = [
   {
     label: 'Planning Potential',
     detail: 'We assess plots for outline and detailed planning consent viability.',
-    icon: <MapPin className="w-5 h-5 text-slate-900" />
+    icon: <MapPin className="w-5 h-5 text-gray-900" />
   },
   {
     label: 'New Build Warranties',
     detail: 'We ensure all new homes come with recognised build warranties.',
-    icon: <ShieldCheck className="w-5 h-5 text-slate-900" />
+    icon: <ShieldCheck className="w-5 h-5 text-gray-900" />
   },
   {
     label: 'Off-Market Access',
     detail: 'Early access to plots and developments not listed on major portals.',
-    icon: <Clock className="w-5 h-5 text-slate-900" />
+    icon: <Clock className="w-5 h-5 text-gray-900" />
   },
 ];
 
 export default function LandAndNew() {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <main className="min-h-screen bg-white text-gray-900" style={{ fontFamily: "'Poppins', sans-serif" }}>
       
-      {/* --- Clean, Minimal Header --- */}
-      <section className="bg-white border-b border-slate-100">
-        <div className="max-w-4xl mx-auto px-6 py-20 md:py-28 text-center">
-          <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-slate-500 uppercase border border-slate-200 rounded-full">
+      {/* --- Hero Header with Blur Text Effect --- */}
+      <section className="relative bg-white border-b border-gray-100 overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
+          <span className="inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-[0.3em] text-gray-500 uppercase border border-gray-200 rounded-full">
             Development & New Build
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6">
-            Land & New Homes
+          
+          {/* Blur Text Effect Heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-[0.95]">
+            <span className="text-gray-900">Land &</span>{' '}
+            <span className="relative inline-block">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-gray-300">
+                New Homes
+              </span>
+              <span className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-600 to-transparent blur-[2px] opacity-60">
+                New Homes
+              </span>
+            </span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          
+          <p className="text-base sm:text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
             Discover development opportunities and brand new homes across the UK. 
             We source land and builds with verified potential and quality.
           </p>
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        
-        {/* --- Status & Highlights Grid --- */}
-        <div className="grid gap-8 lg:grid-cols-3 mb-20">
-          {/* Status Card (Wide on mobile, 2 cols on desktop) */}
-          <div className="lg:col-span-2 bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Building2 className="w-48 h-48" />
-            </div>
-            
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-amber-50 rounded-lg">
-                  <FileText className="w-6 h-6 text-amber-600" />
-                </div>
-                <h2 className="text-xl font-bold text-slate-900">Portfolio Update</h2>
-              </div>
-              <p className="text-slate-600 text-lg mb-6 leading-relaxed">
-                Our current selection of land and new build homes is being replenished. 
-                We are actively sourcing high-quality plots and verified new developments to add to our portfolio shortly.
-              </p>
-              <Link 
-                to="/contact"
-                className="inline-flex items-center gap-2 text-slate-900 font-semibold hover:text-blue-600 transition-colors group"
-              >
-                Register your interest <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">        
 
-          {/* Highlights Column */}
-          <div className="lg:col-span-1 flex flex-col gap-4">
-            {HIGHLIGHTS.map((item, idx) => (
-              <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex gap-4 items-start hover:border-blue-300 transition-colors">
-                <div className="p-2 bg-slate-50 rounded-lg shrink-0">
-                  {item.icon}
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 mb-1">{item.label}</h3>
-                  <p className="text-sm text-slate-500 leading-snug">{item.detail}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* --- Content Sections (Article Style) --- */}
-        <article className="max-w-3xl mx-auto space-y-16">
+        {/* --- Content Sections --- */}
+        <article className="max-w-3xl mx-auto space-y-12 sm:space-y-16">
           {SECTIONS.map((section, index) => (
             <div key={index} className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
                 {section.title}
               </h2>
-              <div className="space-y-4 text-slate-600 text-lg leading-relaxed">
+              <div className="space-y-4 text-gray-600 text-base sm:text-lg leading-relaxed font-light">
                 {section.lines.map((line, i) => (
                   <p key={i}>{line}</p>
                 ))}
@@ -150,22 +117,22 @@ export default function LandAndNew() {
         </article>
 
         {/* --- Bottom CTA --- */}
-        <div className="mt-24 text-center bg-slate-900 rounded-3xl p-10 md:p-16 text-white">
-          <h2 className="text-3xl font-bold mb-4">Looking for something specific?</h2>
-          <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
+        <div className="mt-16 sm:mt-24 text-center bg-gray-900 rounded-2xl sm:rounded-3xl p-8 sm:p-12 md:p-16 text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Looking for something specific?</h2>
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-base sm:text-lg font-light">
             If you have a specific requirement for land or a new build, tell us about it. 
             We can notify you the moment a matching opportunity arises.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/contact"
-              className="bg-white text-slate-900 px-8 py-3 rounded-full font-bold hover:bg-slate-100 transition-colors"
+              className="bg-white text-gray-900 px-6 sm:px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors text-sm"
             >
               Contact an Agent
             </Link>
             <Link
               to="/buy"
-              className="border border-slate-600 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition-colors"
+              className="border border-gray-600 text-white px-6 sm:px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition-colors text-sm"
             >
               View Residential Listings
             </Link>
