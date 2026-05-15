@@ -57,7 +57,7 @@ export default function PropertySection({ compact = false, ctaText = 'View All P
   }, [API_URL, queryParams])
 
   return (
-    <section id='properties' className='pt-24 pb-20'>
+    <section id='properties' className='pt-24 px-6 pb-20'>
       {!compact && (
         <div className='mx-auto mb-10 max-w-3xl text-center'>
           <span className='block text-sm font-semibold uppercase tracking-widest text-cyan-500'>Latest Listings</span>
