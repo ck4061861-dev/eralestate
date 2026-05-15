@@ -1,11 +1,27 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
+import {
+  ArrowRight,
+  Calendar,
+  User,
+  Clock,
+  Bookmark,
+  TrendingUp,
+  Search,
+  Loader2,
+  RefreshCw,
+  Mail,
+  Send,
+  ChevronRight,
+  Tag
+} from 'lucide-react'
 
 export default function Blog() {
   const API_URL = import.meta.env.VITE_API_URL
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [activeCategory, setActiveCategory] = useState('All')
 
   const fetchBlogs = useCallback(async () => {
     try {
@@ -37,9 +53,6 @@ export default function Blog() {
     fetchBlogs()
   }, [fetchBlogs])
 
-  const featuredBlog = blogs[0]
-  const otherBlogs = blogs.slice(1)
-
   const resolveImage = (image) => {
     if (!image || typeof image !== 'string') return null
     const trimmed = image.trim()
@@ -47,175 +60,386 @@ export default function Blog() {
     return null
   }
 
+  // Get unique categories
+  const categories = ['All', ...new Set(blogs.map(b => b.category).filter(Boolean))]
+  
+  // Filter blogs
+  const filteredBlogs = activeCategory === 'All' 
+    ? blogs 
+    : blogs.filter(b => b.category === activeCategory)
+
+  const featuredBlog = filteredBlogs[0]
+  const otherBlogs = filteredBlogs.slice(1)
+
+  const formatDate = (dateString) => {
+    if (!dateString) return ''
+    return new Date(dateString).toLocaleDateString('en-US', { 
+      month: 'long', 
+      day: 'numeric',
+      year: 'numeric'
+    })
+  }
+
   return (
-    <main className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-900">
-      <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-sky-300/20 blur-3xl" />
-      <div className="pointer-events-none absolute top-20 right-8 h-56 w-56 rounded-full bg-cyan-400/15 blur-3xl" />
-
-      <section className="relative overflow-hidden bg-slate-900 text-white">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center brightness-75" />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/80 via-slate-900/20 to-slate-900/95" />
-
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-24 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:px-10">
-          <div className="flex flex-col justify-center gap-8">
-            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.32em] text-sky-200 backdrop-blur-sm">
-              Insights & Resources
-            </span>
-            <div className="max-w-3xl">
-              <h1 className="text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
-                Real Estate <span className="text-cyan-400">Blog</span>
-              </h1>
-              <p className="mt-6 text-lg leading-8 text-slate-200 sm:text-xl">
-                Explore market updates, smart investment tactics, and space-worthy stories crafted for homebuyers, sellers, and investors.
-              </p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-3xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-xl">
-                <p className="text-sm uppercase tracking-[0.3em] text-slate-300">Authors</p>
-                <p className="mt-3 text-2xl font-bold text-white">50+</p>
-              </div>
-              <div className="rounded-3xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-xl">
-                <p className="text-sm uppercase tracking-[0.3em] text-slate-300">Weekly posts</p>
-                <p className="mt-3 text-2xl font-bold text-white">Fresh insights</p>
-              </div>
-              <div className="rounded-3xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-xl">
-                <p className="text-sm uppercase tracking-[0.3em] text-slate-300">Design</p>
-                <p className="mt-3 text-2xl font-bold text-white">Modern cards</p>
-              </div>
+    <main 
+      className="min-h-screen bg-white text-gray-900 overflow-hidden"
+      style={{ fontFamily: "'Poppins', sans-serif" }}
+    >
+      
+      {/* ── HERO SECTION ── */}
+      <section className="relative px-6 pt-24 pb-16 lg:pt-32 lg:pb-24">
+        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gray-50 rounded-full blur-[120px] opacity-40 pointer-events-none -translate-y-1/3 translate-x-1/4" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gray-100 rounded-full blur-[100px] opacity-30 pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          
+          {/* Top Label */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white shadow-sm">
+              <TrendingUp className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-[10px] font-semibold tracking-[0.3em] text-gray-500 uppercase">Insights & Resources</span>
             </div>
           </div>
 
-          <div className="relative flex items-end justify-center">
-            <div className="relative w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/10 p-6 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)] backdrop-blur-xl sm:p-8">
-              <div className="flex flex-col gap-4">
-                <div className="rounded-[2rem] bg-slate-800 p-5 text-white shadow-lg">
-                  <span className="inline-flex rounded-full bg-cyan-500/15 px-3 py-1 text-xs uppercase tracking-[0.22em] text-cyan-200">
-                    Featured Story
-                  </span>
-                  <h2 className="mt-5 text-3xl font-black leading-tight">Tips for First-Time Homebuyers</h2>
-                  <p className="mt-4 text-sm leading-6 text-slate-300">
-                    Learn the essential steps to buying your first home with confidence — from property search to closing day.
-                  </p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[1.75rem] bg-white p-5 shadow-sm">
-                    <p className="text-sm uppercase tracking-[0.2em] text-slate-400">Renting</p>
-                    <h3 className="mt-3 text-xl font-semibold text-slate-900">How to spot a good rental</h3>
-                  </div>
-                  <div className="rounded-[1.75rem] bg-white p-5 shadow-sm">
-                    <p className="text-sm uppercase tracking-[0.2em] text-slate-400">Market</p>
-                    <h3 className="mt-3 text-xl font-semibold text-slate-900">2026 neighborhood trends</h3>
-                  </div>
-                </div>
-              </div>
+          <div className="text-center max-w-4xl mx-auto mb-16">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] tracking-tight mb-8">
+              Real Estate
+              <span className="font-light text-gray-400"> Journal</span>
+            </h1>
+            <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light">
+              Explore market updates, smart investment tactics, and space-worthy stories crafted for homebuyers, sellers, and investors.
+            </p>
+          </div>
+
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto mb-12">
+            <div className="relative">
+              <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input 
+                type="text" 
+                placeholder="Search articles..."
+                className="w-full pl-14 pr-6 py-5 rounded-full border border-gray-200 bg-white shadow-lg shadow-gray-100/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-4 focus:ring-gray-100 transition-all"
+              />
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="flex justify-center gap-12">
+            <div className="text-center">
+              <p className="text-3xl font-bold text-gray-900">{blogs.length}+</p>
+              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] mt-1">Articles</p>
+            </div>
+            <div className="w-px bg-gray-200" />
+            <div className="text-center">
+              <p className="text-3xl font-bold text-gray-900">50+</p>
+              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] mt-1">Authors</p>
+            </div>
+            <div className="w-px bg-gray-200" />
+            <div className="text-center">
+              <p className="text-3xl font-bold text-gray-900">Weekly</p>
+              <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.2em] mt-1">Updates</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="relative mx-auto w-full max-w-6xl px-6 py-16 sm:px-8 lg:px-10">
-        {loading ? (
-          <div className="space-y-8">
-            <div className="h-12 w-36 animate-pulse rounded-full bg-slate-200" />
-            <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+      {/* ── CATEGORY FILTER ── */}
+      {!loading && !error && blogs.length > 0 && (
+        <section className="px-6 py-6 border-y border-gray-100 sticky top-0 z-40 bg-white/80 backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto flex items-center gap-3 overflow-x-auto no-scrollbar">
+            <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider shrink-0 mr-2">Filter:</span>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 shrink-0 ${
+                  activeCategory === cat
+                    ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        
+        {/* ── LOADING STATE ── */}
+        {loading && (
+          <div className="space-y-12">
+            {/* Featured Skeleton */}
+            <div className="grid lg:grid-cols-2 gap-8">
+              <div className="h-80 lg:h-[500px] rounded-[2rem] bg-gray-100 animate-pulse" />
+              <div className="flex flex-col justify-center space-y-6">
+                <div className="h-6 w-32 rounded-full bg-gray-100 animate-pulse" />
+                <div className="h-12 w-full rounded-xl bg-gray-100 animate-pulse" />
+                <div className="h-12 w-3/4 rounded-xl bg-gray-100 animate-pulse" />
+                <div className="h-4 w-full rounded-full bg-gray-100 animate-pulse" />
+                <div className="h-4 w-5/6 rounded-full bg-gray-100 animate-pulse" />
+                <div className="h-4 w-4/6 rounded-full bg-gray-100 animate-pulse" />
+              </div>
+            </div>
+            {/* Grid Skeleton */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3, 4, 5, 6].map((skel) => (
-                <div key={skel} className="animate-pulse rounded-[1.8rem] border border-slate-200 bg-white p-5">
-                  <div className="h-40 rounded-[1.5rem] bg-slate-200" />
-                  <div className="mt-5 h-4 w-3/4 rounded-full bg-slate-200" />
-                  <div className="mt-3 h-4 w-1/2 rounded-full bg-slate-200" />
+                <div key={skel} className="animate-pulse">
+                  <div className="h-56 rounded-[1.5rem] bg-gray-100 mb-5" />
+                  <div className="h-4 w-24 rounded-full bg-gray-100 mb-3" />
+                  <div className="h-6 w-full rounded-xl bg-gray-100 mb-3" />
+                  <div className="h-4 w-full rounded-full bg-gray-100 mb-2" />
+                  <div className="h-4 w-5/6 rounded-full bg-gray-100" />
                 </div>
               ))}
             </div>
           </div>
-        ) : error ? (
-          <div className="rounded-[2rem] border border-red-200 bg-white p-12 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-slate-900">Could not load blogs</h3>
-            <p className="mt-2 text-slate-600">{error}</p>
+        )}
+
+        {/* ── ERROR STATE ── */}
+        {!loading && error && (
+          <div className="rounded-[2rem] border border-red-100 bg-red-50/50 p-16 text-center">
+            <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <RefreshCw className="w-8 h-8 text-red-500" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Could not load blogs</h3>
+            <p className="text-gray-500 mb-8 max-w-md mx-auto">{error}</p>
             <button
               onClick={fetchBlogs}
-              className="mt-6 rounded-3xl bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-slate-800"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-full hover:bg-black transition-all shadow-lg font-medium text-sm"
             >
+              <RefreshCw className="w-4 h-4" />
               Try Again
             </button>
           </div>
-        ) : blogs.length === 0 ? (
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-14 text-center shadow-sm">
-            <h3 className="text-3xl font-bold text-slate-900">No Articles Yet</h3>
-            <p className="mx-auto mt-3 max-w-xl text-slate-600">
+        )}
+
+        {/* ── EMPTY STATE ── */}
+        {!loading && !error && blogs.length === 0 && (
+          <div className="rounded-[2rem] border border-gray-100 bg-gray-50/50 p-20 text-center">
+            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-8">
+              <Bookmark className="w-10 h-10 text-gray-400" />
+            </div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">No Articles Yet</h3>
+            <p className="text-gray-500 max-w-lg mx-auto leading-relaxed mb-8">
               New market stories and real estate insights are on the way. Visit again soon for fresh updates.
             </p>
-          </div>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {blogs.slice(0, 9).map((blog) => (
-              <article
-                key={blog._id || blog.id}
-                className="overflow-hidden rounded-[1.8rem] border border-slate-200 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
-              >
-                <div className="relative h-44 overflow-hidden bg-slate-100">
-                  {resolveImage(blog.image) ? (
-                    <img
-                      src={resolveImage(blog.image)}
-                      alt={blog.title}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-slate-400">
-                      <svg className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                  )}
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center justify-between text-[0.65rem] uppercase tracking-[0.24em] text-slate-500">
-                    <span>{new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                    <span className="rounded-full bg-slate-100 px-3 py-1 font-semibold text-slate-700">{blog.category || 'Market'}</span>
-                  </div>
-                  <h3 className="mt-4 text-xl font-semibold text-slate-900">{blog.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
-                    {(blog.excerpt || 'Quick real estate advice and insights for modern homeowners.').slice(0, 120)}{(blog.excerpt || 'Quick real estate advice and insights for modern homeowners.').length > 120 ? '...' : ''}
-                  </p>
-                  <div className="mt-6 flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-700">{blog.author || 'Admin'}</span>
-                    <Link
-                      to={`/blog/${blog._id || blog.id}`}
-                      className="text-sm font-semibold text-slate-900 transition hover:text-cyan-600"
-                    >
-                      Read More
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
+            <button
+              onClick={fetchBlogs}
+              className="inline-flex items-center gap-2 px-8 py-4 border border-gray-300 text-gray-900 rounded-full hover:bg-gray-50 transition-all font-medium text-sm"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Refresh
+            </button>
           </div>
         )}
-      </section>
 
-      <section className="border-t border-slate-200 bg-slate-950 px-6 py-20 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-5xl rounded-[2rem] border border-slate-800 bg-slate-900/95 p-10 text-center shadow-2xl">
-          <p className="text-xs font-bold uppercase tracking-[0.28em] text-cyan-300">Newsletter</p>
-          <h2 className="mt-4 text-3xl font-black text-white sm:text-4xl">Stay Ahead in Property</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
-            Subscribe for weekly property stories and practical market guidance delivered straight to your inbox.
-          </p>
-          <form className="mx-auto mt-8 flex max-w-2xl flex-col gap-4 sm:flex-row" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full rounded-3xl border border-slate-700 bg-slate-950 px-5 py-4 text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20"
-              required
-            />
-            <button
-              type="submit"
-              className="rounded-3xl bg-cyan-500 px-8 py-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
-            >
-              Subscribe
-            </button>
-          </form>
+        {/* ── CONTENT ── */}
+        {!loading && !error && blogs.length > 0 && (
+          <div className="space-y-20">
+            
+            {/* FEATURED ARTICLE */}
+            {featuredBlog && (
+              <div className="group">
+                <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.3em] mb-6 block">Featured Story</span>
+                <Link to={`/blog/${featuredBlog._id || featuredBlog.id}`} className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  <div className="lg:col-span-7 relative">
+                    <div className="aspect-[16/10] rounded-[2rem] overflow-hidden bg-gray-100">
+                      {resolveImage(featuredBlog.image) ? (
+                        <img
+                          src={resolveImage(featuredBlog.image)}
+                          alt={featuredBlog.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="eager"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-50">
+                          <TrendingUp className="w-16 h-16 text-gray-300" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="absolute top-6 left-6">
+                      <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-900 uppercase tracking-wider shadow-sm">
+                        {featuredBlog.category || 'Featured'}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="lg:col-span-5 space-y-6">
+                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="w-4 h-4" />
+                        {formatDate(featuredBlog.createdAt)}
+                      </span>
+                      <span className="w-1 h-1 rounded-full bg-gray-300" />
+                      <span className="flex items-center gap-1.5">
+                        <Clock className="w-4 h-4" />
+                        5 min read
+                      </span>
+                    </div>
+                    
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-gray-900 group-hover:text-gray-600 transition-colors">
+                      {featuredBlog.title}
+                    </h2>
+                    
+                    <p className="text-gray-500 text-lg leading-relaxed font-light">
+                      {(featuredBlog.excerpt || 'Quick real estate advice and insights for modern homeowners.').slice(0, 200)}
+                      {(featuredBlog.excerpt || '').length > 200 ? '...' : ''}
+                    </p>
+                    
+                    <div className="flex items-center justify-between pt-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center text-sm font-semibold">
+                          {(featuredBlog.author || 'A').charAt(0)}
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900">{featuredBlog.author || 'Admin'}</p>
+                          <p className="text-xs text-gray-400">Author</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm font-semibold text-gray-900 group-hover:translate-x-1 transition-transform">
+                        Read Article <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            )}
+
+            {/* DIVIDER */}
+            <div className="border-t border-gray-100" />
+
+            {/* ARTICLE GRID */}
+            <div>
+              <div className="flex items-end justify-between mb-12">
+                <div>
+                  <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.3em] mb-3 block">Latest</span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900">More Stories</h2>
+                </div>
+                <span className="text-sm text-gray-400 font-light">{otherBlogs.length} articles</span>
+              </div>
+
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {otherBlogs.slice(0, 9).map((blog, index) => (
+                  <article
+                    key={blog._id || blog.id}
+                    className="group flex flex-col"
+                  >
+                    <Link to={`/blog/${blog._id || blog.id}`} className="block">
+                      <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-gray-100 mb-6">
+                        {resolveImage(blog.image) ? (
+                          <img
+                            src={resolveImage(blog.image)}
+                            alt={blog.title}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-50">
+                            <Tag className="w-10 h-10 text-gray-300" />
+                          </div>
+                        )}
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1.5 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-semibold text-gray-700 uppercase tracking-wider">
+                            {blog.category || 'Market'}
+                          </span>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                    </Link>
+
+                    <div className="flex flex-col flex-1">
+                      <div className="flex items-center gap-3 text-xs text-gray-400 mb-3">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {formatDate(blog.createdAt)}
+                        </span>
+                        <span className="w-1 h-1 rounded-full bg-gray-300" />
+                        <span>5 min read</span>
+                      </div>
+
+                      <Link to={`/blog/${blog._id || blog.id}`}>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-3 leading-snug group-hover:text-gray-600 transition-colors line-clamp-2">
+                          {blog.title}
+                        </h3>
+                      </Link>
+
+                      <p className="text-gray-500 text-sm leading-relaxed font-light line-clamp-3 mb-5 flex-1">
+                        {(blog.excerpt || 'Quick real estate advice and insights for modern homeowners.').slice(0, 120)}
+                        {(blog.excerpt || '').length > 120 ? '...' : ''}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center text-xs font-semibold">
+                            {(blog.author || 'A').charAt(0)}
+                          </div>
+                          <span className="text-xs font-medium text-gray-600">{blog.author || 'Admin'}</span>
+                        </div>
+                        <Link 
+                          to={`/blog/${blog._id || blog.id}`}
+                          className="text-xs font-semibold text-gray-900 flex items-center gap-1 group-hover:gap-2 transition-all"
+                        >
+                          Read <ChevronRight className="w-3 h-3" />
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        )}
+
+      </div>
+
+      {/* ── NEWSLETTER ── */}
+      <section className="px-6 py-24 bg-gray-50/50 border-t border-gray-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="rounded-[2.5rem] bg-gray-900 p-12 md:p-20 text-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gray-800 rounded-full blur-[100px] opacity-30" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-gray-800 rounded-full blur-[80px] opacity-20" />
+            
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
+                <Mail className="w-3.5 h-3.5 text-gray-400" />
+                <span className="text-[10px] font-semibold tracking-[0.3em] text-gray-400 uppercase">Newsletter</span>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+                Stay Ahead in <span className="font-light text-gray-400">Property</span>
+              </h2>
+              
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Subscribe for weekly property stories and practical market guidance delivered straight to your inbox.
+              </p>
+              
+              <form className="max-w-xl mx-auto flex flex-col sm:flex-row gap-4" onSubmit={(e) => e.preventDefault()}>
+                <div className="relative flex-1">
+                  <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full pl-14 pr-6 py-4 rounded-full border border-gray-700 bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 focus:ring-4 focus:ring-gray-700/30 transition-all"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-all hover:-translate-y-0.5 shadow-lg"
+                >
+                  <span>Subscribe</span>
+                  <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </section>
+
     </main>
   )
 }

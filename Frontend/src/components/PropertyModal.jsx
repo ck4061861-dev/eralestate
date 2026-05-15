@@ -34,7 +34,7 @@ export default function PropertyModal({ property, onClose, allProperties }) {
           {/* Main Image */}
           <div className="modal-image-section">
             <div className="modal-main-image">
-              <img src={property.image} alt={property.title} />
+              <img src={property.image} alt={property.title} loading="lazy" decoding="async" />
               <span className={`modal-badge ${property.type === 'rent' ? 'rent' : ''}`}>
                 {property.badge}
               </span>
@@ -92,7 +92,7 @@ export default function PropertyModal({ property, onClose, allProperties }) {
             <div className="related-grid">
               {relatedProperties.map(related => (
                 <div key={related.id} className="related-card">
-                  <img src={related.image} alt={related.title} />
+                  <img src={related.image} alt={related.title} loading="lazy" decoding="async" />
                   <div className="related-info">
                     <div className="related-price">{related.price}</div>
                     <div className="related-title">{related.title}</div>

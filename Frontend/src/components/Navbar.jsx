@@ -289,39 +289,39 @@ function Navbar() {
 
             {/* MOBILE MENU */}
             {mobileMenuOpen && (
-              <div className="lg:hidden absolute top-16 left-0 right-0 bg-slate-900 border-b border-slate-800 p-4 space-y-2" onClick={() => setMobileMenuOpen(false)}>
+              <div className="lg:hidden absolute top-16 left-0 right-0 bg-slate-900 border-b border-slate-800 p-4 space-y-2">
                 <div className="text-xs font-semibold uppercase text-slate-400 mb-3">Buy</div>
                 {BUY_MENU_ITEMS.map((item) => (
-                  <Link key={item.slug} to={`/buy/${item.slug}`} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
+                  <Link key={item.slug} to={`/buy/${item.slug}`} onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
                     {item.title}
                   </Link>
                 ))}
-                
+
                 <div className="text-xs font-semibold uppercase text-slate-400 mt-4 mb-2">Rent</div>
                 {RENT_MENU_ITEMS.map((item) => (
-                  <Link key={item.slug} to={`/rent/${item.slug}`} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
+                  <Link key={item.slug} to={`/rent/${item.slug}`} onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
                     {item.title}
                   </Link>
                 ))}
-                
+
                 <div className="text-xs font-semibold uppercase text-slate-400 mt-4 mb-2">Let</div>
                 {LANDLORD_MENU_ITEMS.map((item) => (
-                  <Link key={item.slug} to={`/rent/${item.slug}`} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
+                  <Link key={item.slug} to={`/rent/${item.slug}`} onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
                     {item.title}
                   </Link>
                 ))}
-                
+
                 <div className="text-xs font-semibold uppercase text-slate-400 mt-4 mb-2">About</div>
-                <Link to="/about" className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
+                <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
                   About Us
                 </Link>
-                <Link to="/blog" className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
+                <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
                   Blog
                 </Link>
-                <Link to="/team" className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
+                <Link to="/team" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
                   Meet the Team
                 </Link>
-                <Link to="/contact" className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
+                <Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="block px-3 py-2 text-sm text-slate-200 hover:bg-slate-800 rounded">
                   Contact
                 </Link>
               </div>

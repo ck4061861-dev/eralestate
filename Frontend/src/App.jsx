@@ -1,36 +1,38 @@
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
-import Home from './pages/LandingPage.jsx'
-import Properties from './pages/Properties.jsx'
-import Services from './pages/Services.jsx'
-import About from './pages/About.jsx'
-import Contact from './pages/Contact.jsx'
-import Blog from './pages/Blog.jsx'
-import BlogDetail from './pages/BlogDetail.jsx'
-import Team from './pages/Team.jsx'
-import PropertyDetail from './pages/PropertyDetail.jsx'
-import UserLogin from './Auth/UserLogin.jsx'
-import UserRegister from './Auth/UserRegister.jsx'
-import AdminLogin from './Auth/Adminlogin.jsx'
-import AdminRegister from './Auth/AdminRegister.jsx'
-import BuyPage from './pages/BuyPage.jsx'
-import RentPage from './pages/RentPage.jsx'
-import SellPage from './NavPages/SellPage.jsx'
-import Profile from './pages/Profile.jsx'
-import AdminPanel from './pages/AdminPanel.jsx'
-import Propertyforsell from './NavPages/Propertyforsell.jsx'
-import LandAndNew from './NavPages/LandAndNew.jsx'
-import BuyersGuide from './NavPages/BuyersGuide.jsx'
-import PforRent from './NavPages/PforRent.jsx'
-import BuyingProperty from './pages/guides/BuyingProperty.jsx'
-import SellersGuide from './pages/guides/SellersGuide.jsx'
-import LettingGuide from './pages/guides/LettingGuide.jsx'
-import TenantsGuide from './pages/guides/TenantsGuide.jsx'
-import FreeValuation from './pages/guides/FreeValuation.jsx'
-import PropertyAlerts from './pages/guides/PropertyAlerts.jsx'
+import { lazy, Suspense } from 'react'
+import { useLocation, Navigate, Routes, Route } from 'react-router-dom'
 import SocialSidebar from './components/SocialSidebar.jsx'
 import ConsentBanner from './components/ConsentBanner.jsx'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
+
+const Home = lazy(() => import('./pages/LandingPage.jsx'))
+const Properties = lazy(() => import('./pages/Properties.jsx'))
+const Services = lazy(() => import('./pages/Services.jsx'))
+const About = lazy(() => import('./pages/About.jsx'))
+const Contact = lazy(() => import('./pages/Contact.jsx'))
+const Blog = lazy(() => import('./pages/Blog.jsx'))
+const BlogDetail = lazy(() => import('./pages/BlogDetail.jsx'))
+const Team = lazy(() => import('./pages/Team.jsx'))
+const PropertyDetail = lazy(() => import('./pages/PropertyDetail.jsx'))
+const UserLogin = lazy(() => import('./Auth/UserLogin.jsx'))
+const UserRegister = lazy(() => import('./Auth/UserRegister.jsx'))
+const AdminLogin = lazy(() => import('./Auth/Adminlogin.jsx'))
+const AdminRegister = lazy(() => import('./Auth/AdminRegister.jsx'))
+const BuyPage = lazy(() => import('./pages/BuyPage.jsx'))
+const RentPage = lazy(() => import('./pages/RentPage.jsx'))
+const SellPage = lazy(() => import('./NavPages/SellPage.jsx'))
+const Profile = lazy(() => import('./pages/Profile.jsx'))
+const AdminPanel = lazy(() => import('./pages/AdminPanel.jsx'))
+const Propertyforsell = lazy(() => import('./NavPages/Propertyforsell.jsx'))
+const LandAndNew = lazy(() => import('./NavPages/LandAndNew.jsx'))
+const BuyersGuide = lazy(() => import('./NavPages/BuyersGuide.jsx'))
+const PforRent = lazy(() => import('./NavPages/PforRent.jsx'))
+const BuyingProperty = lazy(() => import('./pages/guides/BuyingProperty.jsx'))
+const SellersGuide = lazy(() => import('./pages/guides/SellersGuide.jsx'))
+const LettingGuide = lazy(() => import('./pages/guides/LettingGuide.jsx'))
+const TenantsGuide = lazy(() => import('./pages/guides/TenantsGuide.jsx'))
+const FreeValuation = lazy(() => import('./pages/guides/FreeValuation.jsx'))
+const PropertyAlerts = lazy(() => import('./pages/guides/PropertyAlerts.jsx'))
 
 function App() {
   const location = useLocation()
@@ -41,42 +43,53 @@ function App() {
   return (
     <div className={`min-h-[calc(100vh-4rem)] ${isHome ? '' : 'pt-16'}`}>
       <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/properties" element={<Properties />} />
-          <Route path="/rent" element={<Navigate to="/rent/properties-to-let" replace />} />
-          <Route path="/rent/properties-to-let" element={<PforRent />} />
-          <Route path="/rent/:slug" element={<RentPage />} />
-          <Route path="/property/:id" element={<PropertyDetail />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id" element={<BlogDetail />} />
-          <Route path="/team" element={<Team />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<UserLogin />} />
-          <Route path="/register" element={<UserRegister />} />
-          <Route path="/owner" element={<AdminLogin />} />
-          <Route path="/owner/register" element={<AdminRegister />} />
-          <Route path="/buy" element={<Navigate to="/buy/properties-for-sale" replace />} />
-          <Route path="/buy/properties-for-sale" element={<Propertyforsell />} />
-          <Route path="/buy/land-and-new-homes" element={<LandAndNew />} />
-          <Route path="/buy/buyers-guide" element={<BuyersGuide />} />
-          <Route path="/buy/:slug" element={<BuyPage />} />
-          <Route path="/sell" element={<Navigate to="/sell/free-valuation" replace />} />
-          <Route path="/rent/tenants-guide" element={<TenantsGuide />} />
-          <Route path="/guides/buying-property" element={<BuyingProperty />} />
-          <Route path="/guides/selling-property" element={<SellersGuide />} />
-          <Route path="/guides/letting-property" element={<LettingGuide />} />
-          <Route path="/guides/tenants-guide" element={<TenantsGuide />} />
-          <Route path="/guides/free-valuation" element={<FreeValuation />} />
-          <Route path="/guides/property-alerts" element={<PropertyAlerts />} />
-          <Route path="/sell/:slug" element={<SellPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/admin" element={<AdminPanel />} />
-        </Routes>
-      </div>
+      <Suspense
+        fallback={
+          <div className="flex min-h-[60vh] items-center justify-center bg-white">
+            <div className="text-center">
+              <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-[3px] border-slate-300 border-t-cyan-500" />
+              <p className="text-sm text-slate-500">Loading page...</p>
+            </div>
+          </div>
+        }
+      >
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/properties" element={<Properties />} />
+            <Route path="/rent" element={<Navigate to="/rent/properties-to-let" replace />} />
+            <Route path="/rent/properties-to-let" element={<PforRent />} />
+            <Route path="/rent/:slug" element={<RentPage />} />
+            <Route path="/property/:id" element={<PropertyDetail />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
+            <Route path="/team" element={<Team />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<UserLogin />} />
+            <Route path="/register" element={<UserRegister />} />
+            <Route path="/owner" element={<AdminLogin />} />
+            <Route path="/owner/register" element={<AdminRegister />} />
+            <Route path="/buy" element={<Navigate to="/buy/properties-for-sale" replace />} />
+            <Route path="/buy/properties-for-sale" element={<Propertyforsell />} />
+            <Route path="/buy/land-and-new-homes" element={<LandAndNew />} />
+            <Route path="/buy/buyers-guide" element={<BuyersGuide />} />
+            <Route path="/buy/:slug" element={<BuyPage />} />
+            <Route path="/sell" element={<Navigate to="/sell/free-valuation" replace />} />
+            <Route path="/rent/tenants-guide" element={<TenantsGuide />} />
+            <Route path="/guides/buying-property" element={<BuyingProperty />} />
+            <Route path="/guides/selling-property" element={<SellersGuide />} />
+            <Route path="/guides/letting-property" element={<LettingGuide />} />
+            <Route path="/guides/tenants-guide" element={<TenantsGuide />} />
+            <Route path="/guides/free-valuation" element={<FreeValuation />} />
+            <Route path="/guides/property-alerts" element={<PropertyAlerts />} />
+            <Route path="/sell/:slug" element={<SellPage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<AdminPanel />} />
+          </Routes>
+        </div>
+      </Suspense>
 
       {!isAdminRoute && <SocialSidebar />}
       {!isAdminRoute && <ConsentBanner />}

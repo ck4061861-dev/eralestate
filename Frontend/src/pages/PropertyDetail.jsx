@@ -279,6 +279,8 @@ function PropertyDetail() {
         <img
           src={activeImage}
           alt={property.title}
+          loading="eager"
+          fetchPriority="high"
           className="w-full h-full object-cover object-center"
         />
         {/* Gradient overlay */}
@@ -347,7 +349,7 @@ function PropertyDetail() {
                     i === activeIndex ? 'ring-2 ring-teal-500 scale-110 shadow-lg' : 'opacity-60 hover:opacity-90 hover:scale-105'
                   }`}
                 >
-                  <img src={src} alt={`photo-${i + 1}`} className="h-20 w-28 object-cover" />
+                  <img src={src} alt={`photo-${i + 1}`} className="h-20 w-28 object-cover" loading="lazy" decoding="async" />
                 </button>
               ))}
             </div>

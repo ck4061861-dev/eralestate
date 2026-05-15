@@ -87,7 +87,8 @@ export default function PropertyCard({ property }) {
     >
       <div className="relative h-48 w-full overflow-hidden bg-slate-100">
         <img 
-          loading="eager" 
+          loading="lazy"
+          decoding="async"
           src={primaryImage} 
           alt={property.title} 
           className="h-full w-full object-cover object-center" 

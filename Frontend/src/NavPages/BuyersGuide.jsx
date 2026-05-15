@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ResponsiveContainer from '../components/ResponsiveContainer'
 import { 
   ArrowLeft, 
   Home, 
@@ -81,21 +82,24 @@ export default function BuyersGuide() {
           Back to Home
         </button>
 
-        <div className="max-w-5xl mx-auto px-6 py-24 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-6">
-            UK Property Guide
+        <ResponsiveContainer className="py-24 text-center">
+          <div className="max-w-5xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-6">
+              UK Property Guide
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6">
+              The Buyer's <span className="text-blue-600">Journey</span>
+            </h1>
+            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Navigating the UK property market can be complex. Here is your comprehensive roadmap from initial budgeting to collecting the keys.
+            </p>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6">
-            The Buyer's <span className="text-blue-600">Journey</span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Navigating the UK property market can be complex. Here is your comprehensive roadmap from initial budgeting to collecting the keys.
-          </p>
-        </div>
+        </ResponsiveContainer>
       </div>
 
       {/* --- Main Content Area --- */}
-      <div className="max-w-7xl mx-auto px-6 py-20">
+      <ResponsiveContainer className="py-20">
+        <div className="max-w-7xl mx-auto">
         
         {/* Steps Grid */}
         <div className="mb-24">
@@ -196,6 +200,7 @@ export default function BuyersGuide() {
         </div>
 
       </div>
+    </ResponsiveContainer>
     </div>
   );
 }

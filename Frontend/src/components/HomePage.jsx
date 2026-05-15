@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import ResponsiveContainer from './ResponsiveContainer'
 
 function HeroSection() {
   const [scrollY, setScrollY] = useState(0)
@@ -15,11 +16,13 @@ function HeroSection() {
       <img
         src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&auto=format&fit=crop"
         alt="Beautiful modern home"
+        loading="eager"
+        fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover object-center"
         style={{ transform: `translateY(${scrollY * 0.1}px)` }}
       />
       <div className="absolute inset-0 bg-linear-to-br from-slate-950/80 via-slate-950/70 to-slate-900/70" />
-      <div className="relative z-10 flex h-full max-w-7xl flex-col justify-center pl-3 sm:pl-4 md:pl-6 lg:pl-8 text-left">
+      <ResponsiveContainer className="relative z-10 flex h-full flex-col justify-center pl-3 sm:pl-4 md:pl-6 lg:pl-8 text-left">
         <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white max-w-lg sm:max-w-2xl md:max-w-4xl">
           Find Your <span className="text-emerald-300">Dream</span><br />
           Home Today
@@ -42,7 +45,7 @@ function HeroSection() {
             Free Valuation
           </Link>
         </div>
-      </div>
+      </ResponsiveContainer>
     </section>
   )
 }

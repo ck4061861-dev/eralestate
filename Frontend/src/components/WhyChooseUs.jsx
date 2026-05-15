@@ -12,7 +12,7 @@ export default function WhyChooseUs() {
     <section className="bg-slate-900 border-t border-slate-800 px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10 md:py-12">
       <div className="mx-auto grid max-w-6xl gap-6 sm:gap-8 lg:grid-cols-2 lg:items-center">
         <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl shadow-slate-900/40">
-          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&auto=format&fit=crop" alt="Our Team" />
+          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&auto=format&fit=crop" alt="Our Team" loading="lazy" decoding="async" />
         </div>
 
         <div>

@@ -67,6 +67,8 @@ export default function SellPage() {
               <img 
                 src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" 
                 alt="Beautiful home exterior" 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover opacity-90 transition-opacity duration-700 hover:opacity-100" 
               />
               <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-900/20 to-transparent"></div>
