@@ -65,6 +65,7 @@ function App() {
           <Route path="/buy/buyers-guide" element={<BuyersGuide />} />
           <Route path="/buy/:slug" element={<BuyPage />} />
           <Route path="/sell" element={<Navigate to="/sell/free-valuation" replace />} />
+          <Route path="/rent/tenants-guide" element={<TenantsGuide />} />
           <Route path="/guides/buying-property" element={<BuyingProperty />} />
           <Route path="/guides/selling-property" element={<SellersGuide />} />
           <Route path="/guides/letting-property" element={<LettingGuide />} />

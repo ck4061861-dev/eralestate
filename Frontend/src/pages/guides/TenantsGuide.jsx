@@ -1,137 +1,236 @@
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  ShieldCheck,
+  Lock,
+  FileText,
+  Home,
+  AlertCircle,
+  CheckCircle2,
+  ArrowRight,
+  Scale,
+  Clock,
+} from 'lucide-react';
 
 export default function TenantsGuide() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const rights = [
     {
-      title: 'Right to a Safe Home',
-      description: 'Your landlord must maintain the property in a habitable condition and comply with health and safety regulations.',
-      icon: '🏠'
+      title: 'Right to a Habitable Property',
+      description:
+        'Your landlord is legally required to keep the structure and exterior in repair. This includes heating, hot water, and sanitation (Section 11, Landlord & Tenant Act 1985).',
+      icon: <Home className="w-6 h-6" />,
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
     },
     {
-      title: 'Deposit Protection',
-      description: 'Your deposit must be protected in a government-approved scheme. You\'ll receive prescribed information.',
-      icon: '🛡️'
+      title: 'Tenancy Deposit Protection',
+      description:
+        'By law, your deposit must be placed in a government-approved scheme (TDS, MyDeposits, or DPS) within 30 days. You must receive the "Prescribed Information".',
+      icon: <ShieldCheck className="w-6 h-6" />,
+      color: 'text-emerald-600',
+      bg: 'bg-emerald-50',
     },
     {
-      title: 'Right to Privacy',
-      description: 'Your landlord can\'t enter without notice except in genuine emergencies. Usually requires 24 hours notice.',
-      icon: '🔒'
+      title: 'Protection from Illegal Eviction',
+      description:
+        'Your landlord cannot evict you without a court order. Changing locks, removing belongings, or harassment is a criminal offence (Protection from Eviction Act 1977).',
+      icon: <Lock className="w-6 h-6" />,
+      color: 'text-red-600',
+      bg: 'bg-red-50',
     },
     {
-      title: 'Fair Rent',
-      description: 'Your rent can only increase as per the tenancy agreement terms or legal notice periods.',
-      icon: '💷'
+      title: 'Right to Information',
+      description:
+        'You are entitled to a copy of the Gas Safety Certificate, EPC (Energy Performance Certificate), and the "How to Rent" guide before you move in.',
+      icon: <FileText className="w-6 h-6" />,
+      color: 'text-purple-600',
+      bg: 'bg-purple-50',
     },
     {
-      title: 'Protection from Eviction',
-      description: 'You cannot be evicted without proper legal procedures and notice periods being followed.',
-      icon: '📋'
+      title: 'Right to Quiet Enjoyment',
+      description:
+        'You have the right to live in your home without unnecessary interference. Landlords must provide 24 hours written notice for non-emergency visits.',
+      icon: <Scale className="w-6 h-6" />,
+      color: 'text-orange-600',
+      bg: 'bg-orange-50',
     },
     {
-      title: 'Repair Rights',
-      description: 'Your landlord must make repairs to structural elements and maintain essential services.',
-      icon: '🔧'
-    }
-  ]
+      title: 'Fair Rent Increases',
+      description:
+        'Rent can only be increased if agreed in the contract or via a formal "Section 13" notice. The frequency is limited (usually once a year).',
+      icon: <AlertCircle className="w-6 h-6" />,
+      color: 'text-pink-600',
+      bg: 'bg-pink-50',
+    },
+  ];
 
   const tips = [
-    'Document the property condition with photos before moving in',
-    'Keep copies of all communications with your landlord',
-    'Report repairs immediately - don\'t wait for repeated issues',
-    'Understand your tenancy agreement thoroughly',
-    'Check that your deposit is properly protected',
-    'Pay rent on time and keep payment records',
-    'Know your notice period - both sides usually need 2 months notice'
-  ]
+    'Take detailed photos of the property condition and inventory on move-in day',
+    'Ensure your Gas Safety Record is valid and visible (CP12)',
+    'Check your EPC rating (minimum E for new lets in England)',
+    'Request a "check-in" inventory report and verify discrepancies within 7 days',
+    'Pay rent by bank transfer for a clear paper trail',
+    'Understand the difference between "Fixed Term" and "Periodic" tenancy',
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
-      {/* Header */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-blue-500 py-12 sm:py-16">
-        <button
-          onClick={() => navigate('/')}
-          className="absolute left-4 sm:left-8 top-4 sm:top-6 inline-flex items-center gap-2 bg-white/90 hover:bg-white text-blue-600 font-semibold px-4 py-2 rounded-full transition-all"
-        >
-          ← Back
-        </button>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="text-5xl mb-4">📋</div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Tenant's Rights & Guide</h1>
-          <p className="text-blue-100 text-lg max-w-2xl mx-auto">
-            Everything you need to know about your rights, responsibilities, and how to make the most of your rental home.
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-white text-slate-950 font-poppins antialiased selection:bg-slate-200 selection:text-slate-900">
+      <section className="relative pt-24 pb-16 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <button
+            onClick={() => navigate('/')}
+            className="group flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium mb-10 transition-colors w-fit"
+          >
+            <ArrowRight className="w-4 h-4 rotate-180 transition-transform group-hover:-translate-x-1" />
+            Back to Home
+          </button>
 
-      {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        {/* Rights Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Your Key Rights as a Tenant</h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="max-w-3xl">
+              <span className="inline-block py-1 px-3 rounded-full bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-widest mb-4">
+                Tenant Resources UK
+              </span>
+              <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight tracking-tight">
+                Tenant's <span className="text-slate-800">Guide</span>
+              </h1>
+              <p className="text-lg text-slate-600 leading-relaxed font-light">
+                A comprehensive guide to your legal rights, responsibilities, and protections as a tenant in the UK rental market.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="mb-24">
+          <div className="flex items-center gap-4 mb-10">
+            <div className="h-px bg-slate-200 flex-1"></div>
+            <h2 className="text-xl font-bold text-slate-900 uppercase tracking-wider">Your Legal Rights</h2>
+            <div className="h-px bg-slate-200 flex-1"></div>
+          </div>
+
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {rights.map((right, idx) => (
               <div
                 key={idx}
-                className="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 hover:border-blue-500 hover:bg-slate-800/80 transition-all duration-300"
+                className="group relative bg-white border border-slate-200 p-8 rounded-2xl hover:border-slate-400 hover:shadow-lg transition-all duration-300"
               >
-                <div className="text-4xl mb-4">{right.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-2">{right.title}</h3>
-                <p className="text-slate-300 leading-relaxed">{right.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+                <div className={`absolute top-0 left-0 w-1 h-full rounded-l-2xl ${right.bg.replace('bg-', 'bg-').replace('50', '500')}`}></div>
 
-        {/* Tips Section */}
-        <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <span className="text-2xl">💡</span> Essential Tenant Tips
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            {tips.map((tip, idx) => (
-              <div key={idx} className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-500/20 text-blue-400">
-                    ✓
-                  </div>
+                <div className={`w-12 h-12 mb-6 flex items-center justify-center rounded-xl ${right.bg} ${right.color}`}>
+                  {right.icon}
                 </div>
-                <p className="text-slate-200">{tip}</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{right.title}</h3>
+                <p className="text-slate-600 leading-relaxed text-sm">{right.description}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Important Info */}
-        <div className="bg-gradient-to-r from-red-600/20 to-pink-600/20 border border-red-500/30 rounded-2xl p-8 mb-12">
-          <h3 className="text-2xl font-bold text-white mb-4">⚠️ Know Your Tenancy Type</h3>
-          <div className="grid gap-6 md:grid-cols-2">
-            <div>
-              <h4 className="text-lg font-bold text-red-400 mb-2">Assured Shorthold Tenancy (AST)</h4>
-              <p className="text-slate-300">Most common type. Usually fixed 6-12 months with notice period required for eviction. You have significant protections.</p>
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-red-400 mb-2">Fixed Term Tenancy</h4>
-              <p className="text-slate-300">You cannot be evicted during the fixed term unless you breach the agreement. After expiry, landlord can regain possession with proper notice.</p>
+        <div className="grid md:grid-cols-3 gap-8 mb-24">
+          <div className="md:col-span-1">
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">Pro Tips</h2>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Follow these practical steps to ensure a smooth tenancy and protect your deposit.
+            </p>
+          </div>
+
+          <div className="md:col-span-2 bg-slate-50 rounded-3xl p-8 border border-slate-100">
+            <div className="grid gap-6">
+              {tips.map((tip, idx) => (
+                <div key={idx} className="flex gap-4 items-start">
+                  <div className="shrink-0 mt-0.5">
+                    <div className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-900 text-white">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
+                  <p className="text-slate-700 font-medium text-sm leading-relaxed">{tip}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-2xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Looking for a Property to Rent?</h3>
-          <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-            Browse our extensive collection of rental properties and find your perfect home.
-          </p>
-          <button
-            onClick={() => navigate('/rent')}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-lg transition-all"
-          >
-            Browse Rentals
-          </button>
+        <div className="mb-24">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8">Important Tenancy Types</h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden hover:shadow-md transition-shadow">
+              <div className="bg-slate-50 p-6 border-b border-slate-100 flex items-center gap-3">
+                <div className="bg-white p-2 rounded-lg border border-slate-200">
+                  <Clock className="w-5 h-5 text-slate-600" />
+                </div>
+                <h3 className="font-bold text-slate-900">Assured Shorthold Tenancy (AST)</h3>
+              </div>
+              <div className="p-6">
+                <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                  The most common tenancy type in England and Wales. It offers tenants significant legal protections.
+                </p>
+                <ul className="space-y-2 text-sm text-slate-500">
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-300 mt-1">•</span>
+                    Deposit must be protected (Section 213).
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-300 mt-1">•</span>
+                    Landlord must give 2 months notice for possession (Section 21).
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-300 mt-1">•</span>
+                    Standard fixed term is usually 6 or 12 months.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden hover:shadow-md transition-shadow">
+              <div className="bg-slate-50 p-6 border-b border-slate-100 flex items-center gap-3">
+                <div className="bg-white p-2 rounded-lg border border-slate-200">
+                  <ShieldCheck className="w-5 h-5 text-slate-600" />
+                </div>
+                <h3 className="font-bold text-slate-900">Holding Deposits</h3>
+              </div>
+              <div className="p-6">
+                <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                  Money paid to "reserve" a property before the tenancy starts.
+                </p>
+                <ul className="space-y-2 text-sm text-slate-500">
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-300 mt-1">•</span>
+                    Capped at a maximum of 1 week's rent.
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-300 mt-1">•</span>
+                    Must be returned within 7 days if the landlord withdraws.
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-300 mt-1">•</span>
+                    Can be deducted from the first month's rent.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-slate-900 text-white rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+          <div className="relative z-10">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to find a home?</h2>
+            <p className="text-slate-400 mb-8 max-w-2xl mx-auto text-lg">
+              Browse our verified listings and find a property managed by professionals who respect your rights.
+            </p>
+            <button
+              onClick={() => navigate('/rent')}
+              className="bg-white hover:bg-slate-200 text-slate-950 px-10 py-4 rounded-full font-bold transition-all shadow-lg hover:shadow-xl flex items-center gap-2 mx-auto group"
+            >
+              Browse Rental Properties <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
