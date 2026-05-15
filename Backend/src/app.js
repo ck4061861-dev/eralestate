@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true, limit: '200mb' }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: ['https://real-estate-website-six-jade.vercel.app'], // Allow requests from these origins
+  origin: ['http://localhost:5173'], // Allow requests from these origins
   credentials: true, // Allow cookies
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],

@@ -1,161 +1,178 @@
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { 
+  MapPin, 
+  Building2, 
+  ShieldCheck, 
+  Clock, 
+  ArrowRight,
+  FileText,
+  CheckCircle
+} from 'lucide-react';
 
+// Updated UK-specific content
 const SECTIONS = [
   {
-    title: 'A thoughtful approach to land and new developments',
+    title: 'A Curated Approach to UK Land & New Developments',
     lines: [
-      'At our agency, we are dedicated to delivering a refined and professional experience within the property market. Our focus is always on quality over quantity, ensuring that every opportunity we present meets a high standard of excellence and aligns with the expectations of our valued clients.',
-      'At present, we do not have any land or new development listings available. However, this does not reflect a lack of opportunity — rather, it highlights our commitment to carefully sourcing only the most suitable and desirable properties. Our team is actively working behind the scenes, continuously exploring the market to identify opportunities that match your preferences.',
+      'In the UK market, finding the right land plot or new build requires more than just a database search. It requires insight into local planning permissions, development potential, and build quality. At our agency, we prioritise quality over quantity, ensuring every land or new home opportunity meets our rigorous standards for investment value and lifestyle suitability.',
+      'Currently, our portfolio for Land and New Homes is being carefully curated. While we do not have active listings at this exact moment, this reflects our dedication to sourcing only the most viable and desirable opportunities for our clients.',
     ],
   },
   {
-    title: 'Your search is a meaningful decision',
+    title: 'Your Property Journey is Personal',
     lines: [
-      'We understand that finding the right property is not just a transaction, but a meaningful decision that can shape your lifestyle and future. Whether you are searching for a modern home, a long-term investment, or a property with unique character, we are here to guide you with expertise and attention to detail.',
-      'Our approach is centred around personalised service. Every client has different needs, and we take the time to understand your requirements in depth. This allows us to provide tailored recommendations and ensure that you are presented with options that truly suit your goals.',
+      'Whether you are searching for a self-build plot in the countryside, an "Off-Plan" apartment in a developing city centre, or a completed new home with a 10-year warranty (NHBC/Zurich), we understand this is a significant life decision.',
+      'We move away from the "one size fits all" approach. Our team takes the time to understand whether you are looking for immediate development potential, long-term capital growth, or a turnkey modern living space.',
     ],
   },
   {
-    title: 'We continue the search for you',
+    title: 'Proactive Sourcing & Off-Market Opportunities',
     lines: [
-      'Even though new listings may not be available at this moment, our work continues every day. We are in constant communication with property owners, developers, and industry professionals to ensure that we are among the first to discover new opportunities as they arise.',
-      'We encourage you to stay connected with us. By checking back regularly or registering your interest, you can remain informed about the latest properties as soon as they become available. Our aim is to ensure that you never miss out on the right opportunity.',
+      'The best land and development opportunities in the UK often never reach the public portals. Our team is actively engaged with local authorities, landowners, and small developers to uncover opportunities before they are widely advertised.',
+      'By registering your interest with us, you ensure you are among the first to know when a plot or new build matching your criteria becomes available. We handle the preliminary checks, including planning constraints and access rights.',
     ],
   },
   {
-    title: 'Dedicated support at every step',
+    title: 'Expert Guidance on Planning & Regulation',
     lines: [
-      'In addition, our team is always available to discuss your requirements in detail. Whether you have a clear vision of what you are looking for or are still exploring your options, we are here to provide honest advice and professional support.',
-      'Transparency, trust, and dedication are at the core of everything we do. We believe in building long-term relationships with our clients by offering consistent value and reliable guidance throughout the entire process.',
+      'Navigating the UK planning system can be daunting. From Green Belt restrictions to Section 106 agreements, the legalities of land purchase are complex. While we recommend instructing a specialist planning consultant or solicitor, our team provides initial guidance on what is realistically achievable with a specific piece of land.',
+      'For new builds, we ensure that any properties we recommend adhere to the necessary building regulations and come with the appropriate warranties, giving you peace of mind.',
     ],
   },
   {
-    title: 'Market insight while you wait',
+    title: 'Stay Connected',
     lines: [
-      'We also invite you to explore our current listings and resources, which may offer valuable insights into the market. Even if your ideal property is not available today, understanding the market can help you make better decisions when the right opportunity appears.',
-      'Our commitment to excellence means that we never rush the process. Instead, we focus on ensuring that when we do present an opportunity, it is one that genuinely meets your expectations and delivers real value.',
-      'Thank you for choosing our agency as your trusted partner in property. Your confidence in us is something we truly appreciate, and we are committed to exceeding your expectations at every stage.',
+      'While you wait for the perfect opportunity, we invite you to browse our existing residential listings to understand market trends and pricing in your desired area. Understanding the value of completed properties is crucial when assessing the potential value of land or new builds.',
+      'Thank you for trusting us with your property search. We are dedicated to finding you an opportunity that truly delivers on your expectations.',
     ],
   },
-]
+];
 
 const HIGHLIGHTS = [
   {
-    label: 'Curated opportunities',
-    detail: 'We only present properties that meet our quality and suitability standards.',
+    label: 'Planning Potential',
+    detail: 'We assess plots for outline and detailed planning consent viability.',
+    icon: <MapPin className="w-5 h-5 text-slate-900" />
   },
   {
-    label: 'Expert market coverage',
-    detail: 'Our team works with developers, owners, and industry professionals every day.',
+    label: 'New Build Warranties',
+    detail: 'We ensure all new homes come with recognised build warranties.',
+    icon: <ShieldCheck className="w-5 h-5 text-slate-900" />
   },
   {
-    label: 'Priority access',
-    detail: 'Register your interest and be among the first to hear about new matches.',
+    label: 'Off-Market Access',
+    detail: 'Early access to plots and developments not listed on major portals.',
+    icon: <Clock className="w-5 h-5 text-slate-900" />
   },
-]
+];
 
 export default function LandAndNew() {
   return (
-    <main className="bg-white text-slate-950 pb-16">
-      <section className="bg-linear-to-br from-slate-950 via-slate-900 to-slate-800 w-full">
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-          <p className="text-sm uppercase tracking-[0.3em] text-cyan-300/70">Buy</p>
-          <h1 className="mt-4 max-w-3xl text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl text-white">
-            Land and New Homes
+    <main className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+      
+      {/* --- Clean, Minimal Header --- */}
+      <section className="bg-white border-b border-slate-100">
+        <div className="max-w-4xl mx-auto px-6 py-20 md:py-28 text-center">
+          <span className="inline-block px-3 py-1 mb-6 text-xs font-bold tracking-widest text-slate-500 uppercase border border-slate-200 rounded-full">
+            Development & New Build
+          </span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6">
+            Land & New Homes
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">
-            Explore development plots and newly built homes with modern amenities.
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Discover development opportunities and brand new homes across the UK. 
+            We source land and builds with verified potential and quality.
           </p>
+        </div>
+      </section>
 
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-            <Link
-              to="/properties"
-              className="inline-flex rounded-full bg-cyan-500 px-7 py-3 text-base font-semibold text-slate-950 shadow-[0_20px_50px_-30px_rgba(6,182,212,0.8)] transition hover:bg-cyan-400"
-            >
-              Browse All Properties
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex rounded-full border border-white/15 bg-white/10 px-7 py-3 text-base font-semibold text-white transition hover:bg-white/15"
-            >
-              Contact Advisor
-            </Link>
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        
+        {/* --- Status & Highlights Grid --- */}
+        <div className="grid gap-8 lg:grid-cols-3 mb-20">
+          {/* Status Card (Wide on mobile, 2 cols on desktop) */}
+          <div className="lg:col-span-2 bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+              <Building2 className="w-48 h-48" />
+            </div>
+            
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-amber-50 rounded-lg">
+                  <FileText className="w-6 h-6 text-amber-600" />
+                </div>
+                <h2 className="text-xl font-bold text-slate-900">Portfolio Update</h2>
+              </div>
+              <p className="text-slate-600 text-lg mb-6 leading-relaxed">
+                Our current selection of land and new build homes is being replenished. 
+                We are actively sourcing high-quality plots and verified new developments to add to our portfolio shortly.
+              </p>
+              <Link 
+                to="/contact"
+                className="inline-flex items-center gap-2 text-slate-900 font-semibold hover:text-blue-600 transition-colors group"
+              >
+                Register your interest <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
 
-          <div className="mt-14 grid gap-4 sm:grid-cols-4">
-            {[
-              { value: '320+', label: 'Sale Listings' },
-              { value: 'Top', label: 'Verified Agents' },
-              { value: 'Fast', label: 'Closing Process' },
-              { value: '98%', label: 'Happy Clients' },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="rounded-[1.75rem] border border-white/10 bg-slate-900/90 p-4 sm:p-6 shadow-2xl shadow-slate-950/40"
-              >
-                <p className="text-3xl font-bold text-white">{item.value}</p>
-                <p className="mt-2 text-sm uppercase tracking-[0.26em] text-slate-400">{item.label}</p>
+          {/* Highlights Column */}
+          <div className="lg:col-span-1 flex flex-col gap-4">
+            {HIGHLIGHTS.map((item, idx) => (
+              <div key={idx} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex gap-4 items-start hover:border-blue-300 transition-colors">
+                <div className="p-2 bg-slate-50 rounded-lg shrink-0">
+                  {item.icon}
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 mb-1">{item.label}</h3>
+                  <p className="text-sm text-slate-500 leading-snug">{item.detail}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      <div className="w-full bg-white px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <div className="grid gap-8">
-          <div className="grid gap-6 lg:grid-cols-[1.7fr_1fr]">
-            <div className="rounded-4xl border border-slate-200 bg-slate-950/95 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-slate-950/20">
-              <p className=" max-w-2xl text-xs uppercase tracking-[0.28em] text-cyan-300">Current status</p>
-              <h2 className="mt-3 text-3xl font-bold text-white">No listings available</h2>
-              <p className="mt-4 text-slate-300 leading-7">
-                This page is focused on curated land and new homes. Our team is actively sourcing new opportunities and will update this page as soon as the right properties arrive.
-              </p>
-              <Link
-                to="/contact"
-                className="mt-8 inline-flex w-full max-w-[320px] items-center justify-center rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 mx-auto"
-              >
-                Register your interest
-              </Link>
-            </div>
-
-            <div className="rounded-4xl border border-slate-200 bg-slate-900/95 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-slate-950/20">
-              <h3 className="text-lg font-semibold text-white">Stay informed</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-400">
-                We are in constant contact with developers, owners, and industry professionals to identify new opportunities as soon as they arise.
-              </p>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  to="/properties"
-                  className="flex-1 rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm font-semibold text-white text-center transition hover:bg-slate-800"
-                >
-                  Explore current listings
-                </Link>
-                <Link
-                  to="/contact"
-                  className="flex-1 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 text-center transition hover:bg-slate-100"
-                >
-                  Speak with an advisor
-                </Link>
+        {/* --- Content Sections (Article Style) --- */}
+        <article className="max-w-3xl mx-auto space-y-16">
+          {SECTIONS.map((section, index) => (
+            <div key={index} className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                {section.title}
+              </h2>
+              <div className="space-y-4 text-slate-600 text-lg leading-relaxed">
+                {section.lines.map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))}
               </div>
             </div>
-          </div>
+          ))}
+        </article>
 
-          <article className="rounded-4xl w-full border border-slate-200 bg-slate-900/95 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-slate-950/20">
-            <div className="space-y-10">
-              {SECTIONS.map((section) => (
-                <section key={section.title} className="space-y-5">
-                  <h2 className="text-2xl font-bold text-white">{section.title}</h2>
-                  <div className="space-y-4 text-slate-300 leading-8">
-                    {section.lines.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </article>
+        {/* --- Bottom CTA --- */}
+        <div className="mt-24 text-center bg-slate-900 rounded-3xl p-10 md:p-16 text-white">
+          <h2 className="text-3xl font-bold mb-4">Looking for something specific?</h2>
+          <p className="text-slate-300 mb-8 max-w-2xl mx-auto">
+            If you have a specific requirement for land or a new build, tell us about it. 
+            We can notify you the moment a matching opportunity arises.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/contact"
+              className="bg-white text-slate-900 px-8 py-3 rounded-full font-bold hover:bg-slate-100 transition-colors"
+            >
+              Contact an Agent
+            </Link>
+            <Link
+              to="/buy"
+              className="border border-slate-600 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition-colors"
+            >
+              View Residential Listings
+            </Link>
+          </div>
         </div>
+
       </div>
     </main>
-  )
+  );
 }

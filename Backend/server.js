@@ -3,7 +3,7 @@ import connectDB from './src/config/database.js';
 
 connectDB();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 
 

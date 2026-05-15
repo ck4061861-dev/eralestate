@@ -1,234 +1,201 @@
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { 
+  ArrowLeft, 
+  Home, 
+  Search, 
+  FileText, 
+  Scale, 
+  Key, 
+  CheckCircle2, 
+  Calculator, 
+  ShieldCheck,
+  Landmark,
+  ArrowRight
+} from 'lucide-react';
 
-const STEPS = [
-  {
-    title: 'Understanding Your Buyer Profile',
-    content: [
-      'Before beginning your search, identify your position as a buyer. This helps you plan your finances and strategy effectively.',
-      'A first-time buyer is someone who has never owned property before. An investor purchases property with the intention of renting it out. A let-to-buy buyer rents out their current home while purchasing another. A sell-to-buy buyer sells their existing property to fund a new purchase.',
-    ],
-  },
-  {
-    title: 'Planning Your Finances',
-    content: [
-      'Organise your finances and determine a clear budget before searching for a property. A mortgage agreement in principle strengthens your position when making an offer.',
-      'Factor in moving expenses, legal fees, stamp duty, survey charges, and mortgage-related fees. Proper planning ensures a smoother buying experience.',
-    ],
-    list: [
-      'Moving expenses',
-      'Legal fees',
-      'Stamp duty',
-      'Survey charges',
-      'Mortgage-related fees',
-    ],
-  },
-  {
-    title: 'Searching for the Right Property',
-    content: [
-      'Finding the right property can take time and effort. Whether you already know what you want or are exploring options, our team is here to help.',
-      'Register your requirements with us so we can narrow down suitable options and guide you throughout the process.',
-    ],
-    list: [
-      'Preferred location',
-      'Type of property',
-      'Number of bedrooms',
-      'Maximum budget',
-    ],
-  },
-  {
-    title: 'Appointing a Solicitor',
-    content: [
-      'Choosing a reliable and proactive solicitor is crucial. They handle the legal aspects and keep the purchase moving smoothly.',
-      'A good solicitor can significantly impact the speed and success of your transaction.',
-    ],
-  },
-  {
-    title: 'Making an Offer',
-    content: [
-      'Once you find the right property, submit an offer promptly. Sellers consider your financial position, buying chain, and preferred timeline.',
-      'Providing proof of funds or mortgage approval strengthens your offer.',
-    ],
-  },
-  {
-    title: 'Offer Accepted',
-    content: [
-      'When your offer is accepted, the process officially begins. Your solicitor is instructed and a formal agreement is prepared for all parties.',
-    ],
-  },
-  {
-    title: 'Legal Process (Conveyancing)',
-    content: [
-      'This stage covers all legal checks related to the property.',
-      'Your solicitor will conduct searches, review documents, raise enquiries, and verify ownership and property details.',
-    ],
-  },
-  {
-    title: 'Survey and Mortgage Approval',
-    content: [
-      'If using a mortgage, you will complete your application and arrange a property survey. The survey assesses condition and value.',
-      'Once approved, the lender issues a formal mortgage offer.',
-    ],
-  },
-  {
-    title: 'Exchange of Contracts',
-    content: [
-      'With all checks complete, contracts are signed and the deposit is paid. The completion date is finalised.',
-    ],
-  },
-  {
-    title: 'Completion',
-    content: [
-      'On completion day, the remaining funds are transferred to the seller. Once confirmed, you receive the keys to your new property.',
-      'Congratulations — you are now a homeowner.',
-    ],
-  },
-]
+export default function BuyersGuide() {
+  const navigate = useNavigate();
 
-function BuyersGuide() {
+  // UK Specific Property Buying Steps
+  const steps = [
+    {
+      number: '01',
+      title: 'Agreement in Principle (AIP)',
+      description: 'Before viewing, secure a "Decision in Principle" from a mortgage lender. This confirms how much they might lend you, making your offer stronger to UK sellers.',
+      icon: <Calculator className="w-6 h-6 text-white" />
+    },
+    {
+      number: '02',
+      title: 'Property Search & Viewings',
+      description: 'Register with local estate agents and use property portals. Determine if you need Freehold (owning the land) or Leasehold (leasing the land). Arrange physical viewings.',
+      icon: <Search className="w-6 h-6 text-white" />
+    },
+    {
+      number: '03',
+      title: 'Make an Offer',
+      description: 'Once you find "The One", make an offer "Subject to Contract". If accepted, the estate agent will issue a Memorandum of Sale to all parties.',
+      icon: <FileText className="w-6 h-6 text-white" />
+    },
+    {
+      number: '04',
+      title: 'Conveyancing & Surveys',
+      description: 'Instruct a solicitor for legal work (Conveyancing). Arrange a RICS survey (HomeBuyer or Building Survey) to check the property\'s condition and valuation.',
+      icon: <Scale className="w-6 h-6 text-white" />
+    },
+    {
+      number: '05',
+      title: 'Mortgage Final Offer',
+      description: 'Your lender will value the property. If satisfied, they will issue a formal Mortgage Offer. Your solicitor will also run Local Authority Searches.',
+      icon: <Landmark className="w-6 h-6 text-white" />
+    },
+    {
+      number: '06',
+      title: 'Exchange & Completion',
+      description: 'Exchange contracts (legally binding, deposit paid). Set a completion date. On completion, funds are transferred, and you collect the keys!',
+      icon: <Key className="w-6 h-6 text-white" />
+    }
+  ];
+
+  // UK Specific Tips
+  const tips = [
+    'Calculate your Stamp Duty Land Tax (SDLT) early. First-time buyers often pay 0% on the first £425,000.',
+    'Check the remaining lease length if buying a flat (Leasehold). Mortgages are difficult if under 80 years.',
+    'Budget for "disbursements"—legal searches and fees charged by your solicitor on top of their quote.',
+    'Get a comprehensive survey, not just a basic valuation, to avoid expensive repair surprises later.',
+    'Protect your purchase with Life Insurance and Buildings Insurance required by the lender.',
+    'Avoid changing jobs or taking out new credit during the mortgage process.'
+  ];
+
   return (
-    <main className="bg-white text-slate-950 pb-16">
-      <section className="bg-linear-to-br from-slate-950 via-slate-900 to-blue-700 text-white w-full">
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-          <p className="text-sm uppercase tracking-[0.3em] text-cyan-300/70">Buy</p>
-          <h1 className="mt-4 max-w-3xl text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-            Home Buyer’s Guide
+    <div className="min-h-screen bg-white font-sans text-slate-900">
+      
+      {/* --- Premium Header Section --- */}
+      <div className="relative bg-slate-50 border-b border-slate-100">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate('/')}
+          className="absolute left-6 top-8 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200 hover:border-slate-300"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Home
+        </button>
+
+        <div className="max-w-5xl mx-auto px-6 py-24 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-6">
+            UK Property Guide
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6">
+            The Buyer's <span className="text-blue-600">Journey</span>
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-200 sm:text-xl">
-            A complete step-by-step guide to purchasing your property.
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Navigating the UK property market can be complex. Here is your comprehensive roadmap from initial budgeting to collecting the keys.
           </p>
         </div>
-      </section>
-
-      <div className="w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <div className="grid gap-6 lg:grid-cols-[1.45fr_1fr] mb-8 items-stretch">
-          <div className="rounded-4xl border border-slate-200 bg-slate-950/95 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-slate-950/20">
-            <p className="text-xs uppercase tracking-[0.28em] text-cyan-300">Current status</p>
-            <h2 className="mt-3 text-3xl font-bold text-white">No listings available</h2>
-            <p className="mt-4 text-slate-300 leading-8 text-sm sm:text-base">
-              This page is focused on curated land and new homes. Our team is actively sourcing the best opportunities and will update the page as soon as the right properties arrive.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-start">
-              <Link
-                to="/contact"
-                className="inline-flex w-full items-center justify-center rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 sm:w-auto"
-              >
-                Register your interest
-              </Link>
-              <span className="rounded-full border border-slate-700 bg-slate-950/70 px-4 py-3 text-sm font-medium text-slate-300">
-                Expert sourcing, tailored updates
-              </span>
-            </div>
-          </div>
-
-          <div className="rounded-4xl border border-slate-200 bg-slate-900/95 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-slate-950/20">
-            <h3 className="text-xl font-semibold text-white">Stay informed</h3>
-            <p className="mt-4 text-sm leading-7 text-slate-400">
-              Our team is ready to support you whether you have a clear vision or are still exploring your options.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="/properties"
-                className="flex-1 min-w-0 rounded-3xl border border-slate-700 bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 text-center"
-              >
-                Explore current listings
-              </Link>
-              <Link
-                to="/contact"
-                className="flex-1 min-w-0 rounded-3xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100 text-center"
-              >
-                Speak with an advisor
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid gap-6">
-          <article className="rounded-4xl border border-slate-200 bg-slate-900/95 p-6 sm:p-8 lg:p-10 shadow-2xl shadow-slate-950/20 text-slate-100">
-            <div className="space-y-10 divide-y divide-slate-800">
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-white">Why Choose Our Agency?</h2>
-                <p className="text-slate-300 leading-8">
-                  We are a well-established independent estate agency with decades of experience in both property sales and lettings. With a strong presence in the local community and a proven history of successful transactions, we take pride in delivering reliable and professional services to every client.
-                </p>
-                <p className="text-slate-300 leading-8">
-                  Our reputation has been built on trust, consistency, and results. We are recognised within the industry for maintaining high standards and providing exceptional customer service. Many of our clients return to us or recommend our services, which reflects our commitment to excellence.
-                </p>
-                <p className="text-slate-300 leading-8">
-                  Purchasing a property is an exciting milestone, but it can also feel overwhelming. To simplify the journey, we have outlined a clear and easy-to-follow step-by-step guide to help you understand the process.
-                </p>
-              </div>
-
-              <div className="space-y-6 pt-8">
-                {STEPS.map((step, index) => (
-                  <section key={step.title} className="rounded-3xl border border-slate-800/70 bg-slate-950/80 p-4 sm:p-6 lg:p-8 shadow-lg shadow-slate-950/10">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.28em] text-cyan-300">Step {index + 1}</p>
-                        <h3 className="mt-2 text-2xl font-semibold text-white">{step.title}</h3>
-                      </div>
-                    </div>
-                    <div className="space-y-4 text-slate-300 leading-8">
-                      {step.content.map((paragraph) => (
-                        <p key={paragraph}>{paragraph}</p>
-                      ))}
-                      {step.list && (
-                        <ul className="list-disc space-y-2 pl-5 text-slate-300">
-                          {step.list.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </section>
-                ))}
-              </div>
-
-              <section className="space-y-5 pt-8">
-                <h3 className="text-2xl font-semibold text-white">Client Experiences</h3>
-                <p className="text-slate-300 leading-8">
-                  Our clients consistently share positive experiences working with us. From initial viewings to final completion, we aim to provide a smooth and stress-free journey.
-                </p>
-                <p className="text-slate-300 leading-8">
-                  We are known for clear communication, professional guidance, and a supportive approach throughout the entire process. Our goal is to make your property purchase as seamless and enjoyable as possible.
-                </p>
-              </section>
-
-              <section className="space-y-5 pt-8">
-                <h3 className="text-2xl font-semibold text-white">Looking Ahead</h3>
-                <p className="text-slate-300 leading-8">
-                  We look forward to helping you find the perfect property. Thank you for choosing our agency as your trusted partner in property.
-                </p>
-              </section>
-            </div>
-          </article>
-
-          <aside className="space-y-6 w-full">
-            <div className="w-full rounded-4xl border border-slate-200 bg-white p-4 sm:p-6 lg:p-8 shadow-2xl shadow-slate-950/10">
-              <h3 className="text-2xl font-semibold text-slate-950">Need help now?</h3>
-              <p className="mt-3 text-slate-600 leading-7">
-                Our team is ready to support you whether you have a clear vision or are still exploring your options.
-              </p>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  to="/properties"
-                  className="flex-1 min-w-0 rounded-3xl border border-slate-300 bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 text-center"
-                >
-                  Explore current listings
-                </Link>
-                <Link
-                  to="/contact"
-                  className="flex-1 min-w-0 rounded-3xl bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 text-center"
-                >
-                  Speak with an advisor
-                </Link>
-              </div>
-            </div>
-          </aside>
-        </div>
       </div>
-    </main>
-  )
+
+      {/* --- Main Content Area --- */}
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        
+        {/* Steps Grid */}
+        <div className="mb-24">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-3xl font-bold text-slate-900">6 Essential Steps</h2>
+            <div className="h-1 flex-1 bg-slate-100 ml-8 rounded-full hidden md:block"></div>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {steps.map((step) => (
+              <div
+                key={step.number}
+                className="group relative bg-white border border-slate-200 rounded-2xl p-8 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 overflow-hidden"
+              >
+                {/* Decorative background icon */}
+                <div className="absolute -right-6 -bottom-6 text-slate-50 opacity-50 group-hover:scale-110 transition-transform duration-500">
+                  <Home className="w-32 h-32" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="bg-slate-900 text-white p-4 rounded-xl shadow-lg">
+                      {step.icon}
+                    </div>
+                    <span className="text-6xl font-bold text-slate-100/50 group-hover:text-blue-50/50 transition-colors">
+                      {step.number}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{step.title}</h3>
+                  <p className="text-slate-600 leading-relaxed text-sm">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* --- Tips & Checklist Section --- */}
+        <div className="bg-slate-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden mb-24">
+          {/* Background Pattern */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[100px] opacity-20"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600 rounded-full blur-[100px] opacity-20"></div>
+
+          <div className="relative z-10 grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+                <ShieldCheck className="w-8 h-8 text-blue-400" />
+                Expert Advice
+              </h2>
+              <p className="text-slate-300 text-lg leading-relaxed mb-8">
+                The UK market has unique quirks. Here are critical checks to ensure your investment is safe and your finances are protected.
+              </p>
+              <button
+                onClick={() => navigate('/contact')}
+                className="bg-white text-slate-900 px-6 py-3 rounded-lg font-bold hover:bg-blue-50 transition-colors flex items-center gap-2"
+              >
+                Speak to an Advisor <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {tips.map((tip, idx) => (
+                <div key={idx} className="flex gap-4 items-start group">
+                  <div className="shrink-0 mt-1">
+                    <div className="bg-blue-600 rounded-full p-1 group-hover:bg-blue-500 transition-colors">
+                      <CheckCircle2 className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed group-hover:text-white transition-colors">
+                    {tip}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* --- CTA Section --- */}
+        <div className="text-center bg-blue-50 rounded-3xl p-12 border border-blue-100">
+          <h3 className="text-3xl font-bold text-slate-900 mb-4">Ready to find your dream home?</h3>
+          <p className="text-slate-600 mb-8 max-w-2xl mx-auto text-lg">
+            Whether you are a first-time buyer or looking to move up the ladder, our extensive UK listings have something for everyone.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => navigate('/buy')}
+              className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+            >
+              Browse Properties <Search className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => navigate('/contact')}
+              className="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-bold px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+            >
+              Book a Valuation
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
 }
-
-
-export default BuyersGuide;

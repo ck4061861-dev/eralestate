@@ -1,142 +1,201 @@
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { 
+  ArrowLeft, 
+  Home, 
+  Search, 
+  FileText, 
+  Scale, 
+  Key, 
+  CheckCircle2, 
+  Calculator, 
+  ShieldCheck,
+  Landmark,
+  ArrowRight
+} from 'lucide-react';
 
 export default function BuyersGuide() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  // UK Specific Property Buying Steps
   const steps = [
     {
-      number: '1',
-      title: 'Get Your Finances in Order',
-      description: 'Check your credit score, save a deposit (typically 5-20%), and get a mortgage pre-approval. Know your budget before you start looking.',
-      icon: '💰'
+      number: '01',
+      title: 'Agreement in Principle (AIP)',
+      description: 'Before viewing, secure a "Decision in Principle" from a mortgage lender. This confirms how much they might lend you, making your offer stronger to UK sellers.',
+      icon: <Calculator className="w-6 h-6 text-white" />
     },
     {
-      number: '2',
-      title: 'Start Your Property Search',
-      description: 'Browse our listings, set up property alerts, and narrow down your preferences. Visit properties that match your criteria.',
-      icon: '🔍'
+      number: '02',
+      title: 'Property Search & Viewings',
+      description: 'Register with local estate agents and use property portals. Determine if you need Freehold (owning the land) or Leasehold (leasing the land). Arrange physical viewings.',
+      icon: <Search className="w-6 h-6 text-white" />
     },
     {
-      number: '3',
+      number: '03',
       title: 'Make an Offer',
-      description: 'When you find the right property, make an offer. We\'ll help you negotiate to get the best deal possible.',
-      icon: '📋'
+      description: 'Once you find "The One", make an offer "Subject to Contract". If accepted, the estate agent will issue a Memorandum of Sale to all parties.',
+      icon: <FileText className="w-6 h-6 text-white" />
     },
     {
-      number: '4',
-      title: 'Property Survey & Valuation',
-      description: 'Get a professional survey to identify any issues. Your lender will also value the property for their final approval.',
-      icon: '🏗️'
+      number: '04',
+      title: 'Conveyancing & Surveys',
+      description: 'Instruct a solicitor for legal work (Conveyancing). Arrange a RICS survey (HomeBuyer or Building Survey) to check the property\'s condition and valuation.',
+      icon: <Scale className="w-6 h-6 text-white" />
     },
     {
-      number: '5',
-      title: 'Complete Legal Steps',
-      description: 'Work with a conveyancer to handle all legal paperwork, title checks, and local searches.',
-      icon: '⚖️'
+      number: '05',
+      title: 'Mortgage Final Offer',
+      description: 'Your lender will value the property. If satisfied, they will issue a formal Mortgage Offer. Your solicitor will also run Local Authority Searches.',
+      icon: <Landmark className="w-6 h-6 text-white" />
     },
     {
-      number: '6',
+      number: '06',
       title: 'Exchange & Completion',
-      description: 'Exchange contracts (you\'re now legally committed) and set a completion date. On completion day, you get the keys!',
-      icon: '🔑'
+      description: 'Exchange contracts (legally binding, deposit paid). Set a completion date. On completion, funds are transferred, and you collect the keys!',
+      icon: <Key className="w-6 h-6 text-white" />
     }
-  ]
+  ];
 
+  // UK Specific Tips
   const tips = [
-    'Get pre-approved for a mortgage before viewing properties',
-    'Don\'t make major purchases before buying - it affects your mortgage',
-    'Factor in additional costs: stamp duty, surveys, legal fees, insurance',
-    'Have a home inspection done before exchanging contracts',
-    'Keep your deposit in a safe, liquid account',
-    'Don\'t make empty promises - be ready to commit'
-  ]
+    'Calculate your Stamp Duty Land Tax (SDLT) early. First-time buyers often pay 0% on the first £425,000.',
+    'Check the remaining lease length if buying a flat (Leasehold). Mortgages are difficult if under 80 years.',
+    'Budget for "disbursements"—legal searches and fees charged by your solicitor on top of their quote.',
+    'Get a comprehensive survey, not just a basic valuation, to avoid expensive repair surprises later.',
+    'Protect your purchase with Life Insurance and Buildings Insurance required by the lender.',
+    'Avoid changing jobs or taking out new credit during the mortgage process.'
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
-      {/* Header */}
-      <div className="relative bg-gradient-to-r from-cyan-600 to-cyan-500 py-12 sm:py-16">
+    <div className="min-h-screen bg-white font-sans text-slate-900">
+      
+      {/* --- Premium Header Section --- */}
+      <div className="relative bg-slate-50 border-b border-slate-100">
+        {/* Back Button */}
         <button
           onClick={() => navigate('/')}
-          className="absolute left-4 sm:left-8 top-4 sm:top-6 inline-flex items-center gap-2 bg-white/90 hover:bg-white text-cyan-600 font-semibold px-4 py-2 rounded-full transition-all"
+          className="absolute left-6 top-8 z-20 flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200 hover:border-slate-300"
         >
-          ← Back
+          <ArrowLeft className="w-4 h-4" />
+          Back to Home
         </button>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="text-5xl mb-4">🏠</div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Buyer's Guide</h1>
-          <p className="text-cyan-100 text-lg max-w-2xl mx-auto">
-            Your complete step-by-step guide to buying a property, from initial search to getting your keys.
+
+        <div className="max-w-5xl mx-auto px-6 py-24 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-6">
+            UK Property Guide
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6">
+            The Buyer's <span className="text-blue-600">Journey</span>
+          </h1>
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Navigating the UK property market can be complex. Here is your comprehensive roadmap from initial budgeting to collecting the keys.
           </p>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        {/* Steps Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">6 Essential Steps</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {steps.map((step) => (
+      {/* --- Main Content Area --- */}
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        
+        {/* Steps Grid */}
+        <div className="mb-24">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-3xl font-bold text-slate-900">6 Essential Steps</h2>
+            <div className="h-1 flex-1 bg-slate-100 ml-8 rounded-full hidden md:block"></div>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {steps.map((step, index) => (
               <div
                 key={step.number}
-                className="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 hover:border-cyan-500 hover:bg-slate-800/80 transition-all duration-300"
+                className="group relative bg-white border border-slate-200 rounded-2xl p-8 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 overflow-hidden"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-cyan-500 text-white font-bold text-lg">
+                {/* Decorative background icon */}
+                <div className="absolute -right-6 -bottom-6 text-slate-50 opacity-50 group-hover:scale-110 transition-transform duration-500">
+                  <Home className="w-32 h-32" />
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="bg-slate-900 text-white p-4 rounded-xl shadow-lg">
+                      {step.icon}
+                    </div>
+                    <span className="text-6xl font-bold text-slate-100/50 group-hover:text-blue-50/50 transition-colors">
                       {step.number}
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{step.title}</h3>
+                  <p className="text-slate-600 leading-relaxed text-sm">{step.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* --- Tips & Checklist Section --- */}
+        <div className="bg-slate-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden mb-24">
+          {/* Background Pattern */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[100px] opacity-20"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600 rounded-full blur-[100px] opacity-20"></div>
+
+          <div className="relative z-10 grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+                <ShieldCheck className="w-8 h-8 text-blue-400" />
+                Expert Advice
+              </h2>
+              <p className="text-slate-300 text-lg leading-relaxed mb-8">
+                The UK market has unique quirks. Here are critical checks to ensure your investment is safe and your finances are protected.
+              </p>
+              <button
+                onClick={() => navigate('/contact')}
+                className="bg-white text-slate-900 px-6 py-3 rounded-lg font-bold hover:bg-blue-50 transition-colors flex items-center gap-2"
+              >
+                Speak to an Advisor <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {tips.map((tip, idx) => (
+                <div key={idx} className="flex gap-4 items-start group">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="bg-blue-600 rounded-full p-1 group-hover:bg-blue-500 transition-colors">
+                      <CheckCircle2 className="w-4 h-4 text-white" />
                     </div>
                   </div>
-                  <div className="text-3xl">{step.icon}</div>
+                  <p className="text-slate-300 leading-relaxed group-hover:text-white transition-colors">
+                    {tip}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-slate-300 leading-relaxed">{step.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Tips Section */}
-        <div className="bg-slate-800/50 border border-slate-700 rounded-2xl p-8 mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-            <span className="text-2xl">💡</span> Key Tips for Success
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            {tips.map((tip, idx) => (
-              <div key={idx} className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-8 w-8 rounded-full bg-cyan-500/20 text-cyan-400">
-                    ✓
-                  </div>
-                </div>
-                <p className="text-slate-200">{tip}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-cyan-600/20 to-blue-600/20 border border-cyan-500/30 rounded-2xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Ready to Start Your Buying Journey?</h3>
-          <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-            Browse our extensive property listings or contact our expert team to help guide you through the process.
+        {/* --- CTA Section --- */}
+        <div className="text-center bg-blue-50 rounded-3xl p-12 border border-blue-100">
+          <h3 className="text-3xl font-bold text-slate-900 mb-4">Ready to find your dream home?</h3>
+          <p className="text-slate-600 mb-8 max-w-2xl mx-auto text-lg">
+            Whether you are a first-time buyer or looking to move up the ladder, our extensive UK listings have something for everyone.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => navigate('/buy')}
-              className="bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold px-8 py-3 rounded-lg transition-all"
+              className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
             >
-              Browse Properties
+              Browse Properties <Search className="w-5 h-5" />
             </button>
             <button
               onClick={() => navigate('/contact')}
-              className="border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 font-bold px-8 py-3 rounded-lg transition-all"
+              className="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-bold px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-2"
             >
-              Contact Our Team
+              Book a Valuation
             </button>
           </div>
         </div>
+
       </div>
     </div>
-  )
+  );
 }
