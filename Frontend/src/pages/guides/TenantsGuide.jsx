@@ -15,65 +15,7 @@ import {
 export default function TenantsGuide() {
   const navigate = useNavigate();
 
-  const rights = [
-    {
-      title: 'Right to a Habitable Property',
-      description:
-        'Your landlord is legally required to keep the structure and exterior in repair. This includes heating, hot water, and sanitation (Section 11, Landlord & Tenant Act 1985).',
-      icon: <Home className="w-6 h-6" />,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50',
-    },
-    {
-      title: 'Tenancy Deposit Protection',
-      description:
-        'By law, your deposit must be placed in a government-approved scheme (TDS, MyDeposits, or DPS) within 30 days. You must receive the "Prescribed Information".',
-      icon: <ShieldCheck className="w-6 h-6" />,
-      color: 'text-emerald-600',
-      bg: 'bg-emerald-50',
-    },
-    {
-      title: 'Protection from Illegal Eviction',
-      description:
-        'Your landlord cannot evict you without a court order. Changing locks, removing belongings, or harassment is a criminal offence (Protection from Eviction Act 1977).',
-      icon: <Lock className="w-6 h-6" />,
-      color: 'text-red-600',
-      bg: 'bg-red-50',
-    },
-    {
-      title: 'Right to Information',
-      description:
-        'You are entitled to a copy of the Gas Safety Certificate, EPC (Energy Performance Certificate), and the "How to Rent" guide before you move in.',
-      icon: <FileText className="w-6 h-6" />,
-      color: 'text-purple-600',
-      bg: 'bg-purple-50',
-    },
-    {
-      title: 'Right to Quiet Enjoyment',
-      description:
-        'You have the right to live in your home without unnecessary interference. Landlords must provide 24 hours written notice for non-emergency visits.',
-      icon: <Scale className="w-6 h-6" />,
-      color: 'text-orange-600',
-      bg: 'bg-orange-50',
-    },
-    {
-      title: 'Fair Rent Increases',
-      description:
-        'Rent can only be increased if agreed in the contract or via a formal "Section 13" notice. The frequency is limited (usually once a year).',
-      icon: <AlertCircle className="w-6 h-6" />,
-      color: 'text-pink-600',
-      bg: 'bg-pink-50',
-    },
-  ];
 
-  const tips = [
-    'Take detailed photos of the property condition and inventory on move-in day',
-    'Ensure your Gas Safety Record is valid and visible (CP12)',
-    'Check your EPC rating (minimum E for new lets in England)',
-    'Request a "check-in" inventory report and verify discrepancies within 7 days',
-    'Pay rent by bank transfer for a clear paper trail',
-    'Understand the difference between "Fixed Term" and "Periodic" tenancy',
-  ];
 
   return (
     <div className="min-h-screen bg-white text-slate-950 font-poppins antialiased selection:bg-slate-200 selection:text-slate-900">
@@ -103,7 +45,7 @@ export default function TenantsGuide() {
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      {/* <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="mb-24">
           <div className="flex items-center gap-4 mb-10">
             <div className="h-px bg-slate-200 flex-1"></div>
@@ -230,7 +172,7 @@ export default function TenantsGuide() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

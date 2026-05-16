@@ -21,7 +21,7 @@ const TAB_OPTIONS = [
   },
   { section: "PEOPLE", items: ["agents", "owners", "staff", "customers"] },
   { section: "CONTENT", items: ["blogs"] },
-  { section: "ADMIN", items: ["users", "roles", "profile"] },
+  { section: "ADMIN", items: ["users", "roles", "profile", "NavPages"] },
 ];
 
 const UNIT_STATUS_OPTIONS = [
