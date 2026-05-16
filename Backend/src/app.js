@@ -16,6 +16,7 @@ import staffRoute from './Routes/staff.routes.js';
 import customerRoute from './Routes/customer.routes.js';
 import roleRoute from './Routes/role.routes.js';
 import blogRoute from './Routes/blog.routes.js';
+import navPageRoute from './Routes/navPage.routes.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -56,6 +57,7 @@ app.use('/api/staff', staffRoute);
 app.use('/api/customers', customerRoute);
 app.use('/api/roles', roleRoute);
 app.use('/api/blogs', blogRoute);
+app.use('/api/nav-pages', navPageRoute);
 
 // Health route
 app.get('/', (req, res) => {

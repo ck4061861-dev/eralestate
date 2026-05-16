@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useContext } from "react";
 import { NotificationContext } from "../contexts/NotificationContext";
 import BlogManager from "../components/BlogManager";
+import NavPagesManager from "../components/NavPagesManager";
 
 const TAB_OPTIONS = [
   { section: "MAIN", items: ["dashboard"] },
@@ -420,6 +421,23 @@ const icons = {
       strokeLinejoin="round"
     >
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  ),
+  NavPages: (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path d="M4 4.5A2.5 2.5 0 0 1 6.5 7H20" />
+      <path d="M6.5 7v10" />
+      <path d="M20 4v16" />
     </svg>
   ),
 };
@@ -11555,6 +11573,9 @@ function AdminPanel() {
 
         {/* ── BLOG MANAGEMENT ── */}
         {activeTab === "blogs" && <BlogManager />}
+
+        {/* ── NAV PAGES MANAGEMENT ── */}
+        {activeTab === "NavPages" && <NavPagesManager />}
       </main>
 
       {/* Record Property Payment Form Modal */}
@@ -12238,7 +12259,7 @@ function AdminPanel() {
                         }
                       );
                       if (res.ok) {
-                        const data = await res.json();
+                        await res.json();
                         setSelectedContractDetail({ ...selectedContractDetail, status });
                         setMessage(`Contract status updated to ${status}`);
                         getContracts();

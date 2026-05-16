@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropertySection from '../components/PropertySection';
+import { useNavPagesContent } from '../contexts/NavPagesContext';
 import { 
   Home, 
   MapPin, 
@@ -11,6 +12,10 @@ import {
 } from 'lucide-react';
 
 const Propertyforsell = () => {
+  const { getPageBySlug } = useNavPagesContent();
+  const pageData = getPageBySlug('properties-for-sale');
+  const content = pageData?.content || {};
+
   return (
     <main className="min-h-screen bg-white text-gray-900" style={{ fontFamily: "'Poppins', sans-serif" }}>
 
@@ -22,7 +27,7 @@ const Propertyforsell = () => {
           {/* Top Label */}
           <div className="mb-6">
             <span className="inline-block px-3 py-1 text-[10px] font-bold tracking-[0.3em] text-gray-500 uppercase border border-gray-200 rounded-full">
-              Real Estate UK
+              {content.heroLabel || 'Real Estate UK'}
             </span>
           </div>
 
@@ -41,7 +46,7 @@ const Propertyforsell = () => {
 
           {/* Paragraph */}
           <p className="text-base sm:text-lg md:text-xl text-gray-500 max-w-2xl leading-relaxed font-light mb-8">
-            Explore our curated collection of residential properties across the United Kingdom. From city apartments to countryside estates, find your next home with confidence.
+            {content.heroDescription || 'Explore our curated collection of residential properties across the United Kingdom. From city apartments to countryside estates, find your next home with confidence.'}
           </p>
 
           {/* Buttons - Below Paragraph */}
@@ -50,13 +55,13 @@ const Propertyforsell = () => {
               to="/contact"
               className="group inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-gray-900 text-white rounded-full hover:bg-black transition-all shadow-lg text-sm font-semibold"
             >
-              Book a Valuation <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              {content.primaryCtaText || 'Book a Valuation'} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/buy"
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white border border-gray-300 text-gray-900 rounded-full hover:border-gray-400 hover:bg-gray-50 transition-all text-sm font-semibold"
             >
-              View Buying Guide
+              {content.secondaryCtaText || 'View Buying Guide'}
             </Link>
           </div>
 
@@ -117,16 +122,16 @@ const Propertyforsell = () => {
       <section className="bg-gray-900 text-white py-16 sm:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            Can't find what you're looking for?
+            {content.bottomTitle || "Can't find what you're looking for?"}
           </h2>
           <p className="text-gray-400 text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto font-light">
-            Register your search criteria with us. We'll notify you the moment a property matching your requirements hits the market.
+            {content.bottomDescription || "Register your search criteria with us. We'll notify you the moment a property matching your requirements hits the market."}
           </p>
           <Link 
             to="/contact" 
             className="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg text-sm"
           >
-            Set Up Property Alerts
+            {content.bottomCtaText || 'Set Up Property Alerts'}
           </Link>
         </div>
       </section>

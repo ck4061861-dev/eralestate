@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ResponsiveContainer from '../components/ResponsiveContainer';
+import { useNavPagesContent } from '../contexts/NavPagesContext';
 import { 
   ArrowLeft, 
   Search, 
@@ -10,6 +11,9 @@ import {
 
 export default function BuyersGuide() {
   const navigate = useNavigate();
+  const { getPageBySlug } = useNavPagesContent();
+  const pageData = getPageBySlug('buyers-guide');
+  const content = pageData?.content || {};
 
   return (
     <div className="min-h-screen bg-white text-gray-900" style={{ fontFamily: "'Poppins', sans-serif" }}>
@@ -40,12 +44,12 @@ export default function BuyersGuide() {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 backdrop-blur-xl mb-6">
               <div className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
               <span className="text-xs uppercase tracking-[0.2em] text-cyan-300 font-semibold">
-                UK Property Guide
+                {content.heroLabel || 'UK Property Guide'}
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[0.95] tracking-tight mb-6">
-              Step by Step Guide to Buying your property
+              {content.heroTitle || 'Step by Step Guide to Buying your property'}
             </h1>
           </div>
         </ResponsiveContainer>
@@ -57,7 +61,7 @@ export default function BuyersGuide() {
         {/* Why Choose Paramount */}
         <div className="mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
-            Why choose Paramount to Buy a Property?
+            {content.sectionTitle || 'Why choose Paramount to Buy a Property?'}
           </h2>
           <ul className="space-y-3">
             <li className="flex items-start gap-3">
@@ -78,7 +82,7 @@ export default function BuyersGuide() {
             </li>
           </ul>
           <p className="text-gray-700 text-sm sm:text-base mt-6 leading-relaxed">
-            Buying a property is exciting but it may also seem a little daunting, so we aim to make the process as easy as possible with our quick step by step guide to buying a property with Paramount:
+            {content.introText || 'Buying a property is exciting but it may also seem a little daunting, so we aim to make the process as easy as possible with our quick step by step guide to buying a property with Paramount:'}
           </p>
         </div>
 

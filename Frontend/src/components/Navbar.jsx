@@ -1,11 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import {
-  BUY_MENU_ITEMS,
-  RENT_MENU_ITEMS,
-  SELL_MENU_ITEMS,
-  LANDLORD_MENU_ITEMS,
-} from "../data/menuItems";
+import { useNavPagesContent } from "../contexts/NavPagesContext";
 
 function Navbar() {
   const location = useLocation();
@@ -13,6 +8,11 @@ function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
+  const { getMenuByCategory } = useNavPagesContent();
+
+  const BUY_MENU_ITEMS = getMenuByCategory("buy");
+  const RENT_MENU_ITEMS = getMenuByCategory("rent");
+  const LANDLORD_MENU_ITEMS = getMenuByCategory("let");
 
   useEffect(() => {
     const onClickOutside = (event) => {

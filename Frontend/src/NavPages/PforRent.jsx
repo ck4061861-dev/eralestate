@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropertySection from '../components/PropertySection';
+import { useNavPagesContent } from '../contexts/NavPagesContext';
 import { 
   Key, 
   MapPin, 
@@ -15,6 +16,10 @@ import {
 } from 'lucide-react';
 
 const PforRent = () => {
+  const { getPageBySlug } = useNavPagesContent();
+  const pageData = getPageBySlug('properties-to-let');
+  const content = pageData?.content || {};
+
   return (
     <main 
       className="min-h-screen bg-white text-gray-900 font-sans selection:bg-gray-900 selection:text-white"
@@ -34,7 +39,7 @@ const PforRent = () => {
           <div className="flex justify-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white shadow-sm">
               <Sparkles className="w-3.5 h-3.5 text-gray-400" />
-              <span className="text-[10px] font-semibold tracking-[0.3em] text-gray-500 uppercase">Residential Lettings</span>
+              <span className="text-[10px] font-semibold tracking-[0.3em] text-gray-500 uppercase">{content.heroLabel || 'Residential Lettings'}</span>
             </div>
           </div>
 
@@ -46,8 +51,7 @@ const PforRent = () => {
             </h1>
             
             <p className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
-              Discover a curated portfolio of exceptional rental properties across the UK. 
-              Secure tenancies, verified landlords, and flexible terms designed for modern living.
+              {content.heroDescription || 'Discover a curated portfolio of exceptional rental properties across the UK. Secure tenancies, verified landlords, and flexible terms designed for modern living.'}
             </p>
           </div>
 
@@ -57,14 +61,14 @@ const PforRent = () => {
               to="/properties"
               className="group flex items-center gap-3 px-10 py-4 bg-gray-900 text-white rounded-full hover:bg-black transition-all duration-300 shadow-lg shadow-gray-900/10 hover:shadow-xl hover:shadow-gray-900/20 hover:-translate-y-0.5"
             >
-              <span className="text-sm font-medium">Browse Rentals</span>
+              <span className="text-sm font-medium">{content.primaryCtaText || 'Browse Rentals'}</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/contact"
               className="group flex items-center gap-3 px-10 py-4 bg-white border border-gray-300 text-gray-900 rounded-full hover:border-gray-900 hover:bg-gray-50 transition-all duration-300"
             >
-              <span className="text-sm font-medium">Tenant Services</span>
+              <span className="text-sm font-medium">{content.secondaryCtaText || 'Tenant Services'}</span>
               <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-900 transition-colors" />
             </Link>
           </div>
@@ -143,19 +147,18 @@ const PforRent = () => {
           </div>
 
           <h2 className="text-4xl md:text-6xl font-light mb-8 tracking-tight leading-tight">
-            Looking for something<br />
-            <span className="font-medium">specific?</span>
+            {content.bottomTitle || 'Looking for something specific?'}
           </h2>
           
           <p className="text-gray-400 text-base md:text-lg mb-12 max-w-xl mx-auto font-light leading-relaxed">
-            Whether you need a short-term let or a long-term family home, register your requirements and let us find the perfect match for you.
+            {content.bottomDescription || 'Whether you need a short-term let or a long-term family home, register your requirements and let us find the perfect match for you.'}
           </p>
           
           <Link 
             to="/contact" 
             className="group inline-flex items-center gap-4 px-10 py-5 bg-white text-gray-900 rounded-full font-medium transition-all duration-300 hover:bg-gray-100 hover:shadow-2xl hover:shadow-white/10 hover:-translate-y-0.5"
           >
-            <span className="text-sm">Register Interest</span>
+            <span className="text-sm">{content.bottomCtaText || 'Register Interest'}</span>
             <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <ArrowRight className="w-3.5 h-3.5 text-white" />
             </div>

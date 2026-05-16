@@ -1,6 +1,7 @@
 ﻿import React, { useMemo, useState } from 'react';
 import LetBenefits from '../components/LetBenefits'
 import { Link, useParams } from 'react-router-dom';
+import { useNavPagesContent } from '../contexts/NavPagesContext';
 import { 
   CheckCircle2, 
   Calculator, 
@@ -21,26 +22,9 @@ import {
   TrendingUp
 } from 'lucide-react';
 
-// ── DATA: MENU ITEMS ──
-const RENT_MENU_ITEMS = [
-  { slug: 'properties-to-let', title: 'Properties To Let', description: 'Browse rental homes and apartments.' },
-  { slug: 'tenants-guide', title: 'Tenants Guide', description: 'Learn what to expect when renting.' },
-  { slug: 'tenants-fees-terms', title: 'Tenants Fees & Terms', description: 'Understand deposits and costs.' },
-  { slug: 'renting-reviews', title: 'Renting Reviews', description: 'See what tenants say about us.' },
-];
-
-const LANDLORD_MENU_ITEMS = [
-  { slug: 'landlords-guide', title: 'Landlords Guide', description: 'Best practices for property management.' },
-  { slug: 'landlords-services-fees', title: 'Landlords Services & Fees', description: 'Breakdown of service options.' },
-  { slug: 'epc', title: 'EPC', description: 'Energy Performance Certificate requirements.' },
-  { slug: 'landlord-reviews', title: 'Landlord Reviews', description: 'Feedback from our landlord partners.' },
-  { slug: 'book-a-valuation', title: 'Book a Valuation', description: 'Get a rental valuation today.' },
-];
-
 // ── LOGIC & DATA ──
-function getRentPageBySlug(slug) {
-  const allItems = [...RENT_MENU_ITEMS, ...LANDLORD_MENU_ITEMS];
-  return allItems.find((item) => item.slug === slug) || RENT_MENU_ITEMS[0];
+function getRentPageBySlug(slug, menuItems) {
+  return menuItems.find((item) => item.slug === slug) || menuItems[0];
 }
 
 const TENANT_CHECKLIST = [
@@ -695,7 +679,15 @@ function getPageContent(slug) {
 
 export default function RentPage() {
   const { slug } = useParams();
-  const pageData = getRentPageBySlug(slug);
+  const { getMenuByCategory, getPageBySlug } = useNavPagesContent();
+  const rentMenu = getMenuByCategory('rent');
+  const letMenu = getMenuByCategory('let');
+  const allMenu = [...rentMenu, ...letMenu];
+  const pageData = getRentPageBySlug(slug, allMenu) || {
+    title: 'Letting Resources',
+    description: 'Helpful property resources for renters and landlords.',
+  };
+  const pageConfig = getPageBySlug(slug);
 
   return (
     <main className="min-h-screen bg-white text-slate-950 font-sans">
@@ -703,7 +695,9 @@ export default function RentPage() {
       <section className="w-full bg-slate-50 border-b border-slate-200 py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="max-w-3xl">
-            <p className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">Letting Resources</p>
+            <p className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">
+              {pageConfig?.content?.heroLabel || 'Letting Resources'}
+            </p>
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight mb-6">
               {pageData.title}
             </h1>

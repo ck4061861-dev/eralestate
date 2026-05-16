@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useNavPagesContent } from '../contexts/NavPagesContext';
 import { 
   MapPin, 
   Building2, 
@@ -68,6 +69,10 @@ const HIGHLIGHTS = [
 ];
 
 export default function LandAndNew() {
+  const { getPageBySlug } = useNavPagesContent();
+  const pageData = getPageBySlug('land-and-new-homes');
+  const content = pageData?.content || {};
+
   return (
     <main className="min-h-screen bg-white text-gray-900" style={{ fontFamily: "'Poppins', sans-serif" }}>
       
@@ -75,7 +80,7 @@ export default function LandAndNew() {
       <section className="relative bg-white border-b border-gray-100 overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
           <span className="inline-block px-3 py-1 mb-6 text-[10px] font-bold tracking-[0.3em] text-gray-500 uppercase border border-gray-200 rounded-full">
-            Development & New Build
+            {content.heroLabel || 'Development & New Build'}
           </span>
           
           {/* Blur Text Effect Heading */}
@@ -92,8 +97,7 @@ export default function LandAndNew() {
           </h1>
           
           <p className="text-base sm:text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed font-light">
-            Discover development opportunities and brand new homes across the UK. 
-            We source land and builds with verified potential and quality.
+            {content.heroDescription || 'Discover development opportunities and brand new homes across the UK. We source land and builds with verified potential and quality.'}
           </p>
         </div>
       </section>
@@ -118,23 +122,22 @@ export default function LandAndNew() {
 
         {/* --- Bottom CTA --- */}
         <div className="mt-16 sm:mt-24 text-center bg-gray-900 rounded-2xl sm:rounded-3xl p-8 sm:p-12 md:p-16 text-white">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Looking for something specific?</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">{content.ctaTitle || 'Looking for something specific?'}</h2>
           <p className="text-gray-400 mb-8 max-w-2xl mx-auto text-base sm:text-lg font-light">
-            If you have a specific requirement for land or a new build, tell us about it. 
-            We can notify you the moment a matching opportunity arises.
+            {content.ctaDescription || 'If you have a specific requirement for land or a new build, tell us about it. We can notify you the moment a matching opportunity arises.'}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/contact"
               className="bg-white text-gray-900 px-6 sm:px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-colors text-sm"
             >
-              Contact an Agent
+              {content.ctaPrimaryText || 'Contact an Agent'}
             </Link>
             <Link
               to="/buy"
               className="border border-gray-600 text-white px-6 sm:px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition-colors text-sm"
             >
-              View Residential Listings
+              {content.ctaSecondaryText || 'View Residential Listings'}
             </Link>
           </div>
         </div>

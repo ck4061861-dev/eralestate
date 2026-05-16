@@ -1,11 +1,11 @@
 import { Link, useParams } from 'react-router-dom'
 import { useMemo, useState } from 'react'
-import { BUY_MENU_ITEMS } from '../data/menuItems'
 import PropertySection from '../components/PropertySection'
+import { useNavPagesContent } from '../contexts/NavPagesContext'
 
 
-function getBuyPageBySlug(slug) {
-  return BUY_MENU_ITEMS.find((item) => item.slug === slug)
+function getBuyPageBySlug(slug, menuItems) {
+  return menuItems.find((item) => item.slug === slug)
 }
 
 const GUIDE_STEPS = [
@@ -190,7 +190,8 @@ function getPageTool(slug) {
 
 export default function BuyPage() {
   const { slug } = useParams()
-  const page = getBuyPageBySlug(slug)
+  const { getMenuByCategory } = useNavPagesContent()
+  const page = getBuyPageBySlug(slug, getMenuByCategory('buy'))
 
   if (!page) {
     return (
